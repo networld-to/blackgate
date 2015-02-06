@@ -1,7 +1,19 @@
 # Black Gate - Mobile Deep Web Hidden Services
+
 A project that introduces a decentralized, mobile and private communication network.
 
-Write a short e-mail to **blackgate@riseup.net** if you are interested in this project. This motivates to push this project further and to publish the current results.
+The main goal is to build a technical framework that lets users host there own
+services on there mobile devices. By allowing everybody to host services, an user can
+directly connect to the device of another user, e.g. Jabber/Xmpp or IRC chat, without
+going over an intermediate, e.g. facebook or gmail chat. Currently this project is
+only a proof-of-concept based on current technologies, protocols and services. In the
+future it is possible that a dedicated application or protocol will be developed, in
+order to support this goal.
+
+Write a short e-mail to **blackgate@riseup.net** if you are interested in this project.
+This motivates to push this project further and to publish the current results. Please
+feel also free to send improvements or start a discussion about the project. We are eager
+to get your feedback.
 
 ## Security & Privacy Measurements
 

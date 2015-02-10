@@ -48,7 +48,7 @@ The following measurements apply partially to the general infrastructure and par
     |   (IRC) Service Jail    |   Encapsulated daemons inside internal
     |-------------------------|   virtual instances
 
-## Encyrption Layers
+## Encryption Layers
 
            |-------------------------|
     Client | Optional OTR Encryption |   Client-to-Client (Highly recommended)

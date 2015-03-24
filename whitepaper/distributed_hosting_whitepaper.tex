@@ -41,7 +41,7 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[11pt,fleqn]{book} % Default font size and left-justified equations
+\documentclass[12pt,fleqn]{book} % Default font size and left-justified equations
 
 %----------------------------------------------------------------------------------------
 
@@ -73,9 +73,9 @@ sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centerin
 \vfill
 \endgroup
 
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 %	COPYRIGHT PAGE
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \newpage
 ~\vfill
@@ -91,9 +91,9 @@ sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centerin
 
 \noindent \textit{First printing, April 2015} % Printing/edition date
 
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 %	TABLE OF CONTENTS
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \chapterimage{chapter_head_1.pdf} % Table of contents heading image
 
@@ -105,30 +105,32 @@ sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centerin
 
 \pagestyle{fancy} % Print headers again
 
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 %	PART
-%----------------------------------------------------------------------------------------
-\part{Introduction}
+%------------------------------------------------------------------------------
+\part{Overview}
 
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 %	CHAPTER 1
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \chapterimage{chapter_head_2.pdf} % Chapter heading image
 
 \chapter{Introduction}
+\input{sections/introduction.tex}
 
-\section{Hosting Paradigm Shift}\index{Hosting Paradigm Shift}
-\section{Use Cases}\index{Use Cases}
+\chapter{Ecosystem}
+\input{sections/ecosystem.tex}
 
-%----------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------
 %	PART
-%----------------------------------------------------------------------------------------
-\part{Specifications}
+%------------------------------------------------------------------------------
+\part{Specifications}\label{part:specifications}
 
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 %	CHAPTER 2
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \chapterimage{chapter_head_1.pdf} % Chapter heading image
 
@@ -136,7 +138,10 @@ sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centerin
 
 \section{Transaction Definition}\index{Transaction Definition}
 \input{sections/transaction_definition.tex}
+
 \section{Block Definition}\index{Block Definition}
+
+\section{Mining Process}\index{Mining Process}
 
 %----------------------------------------------------------------------------------------
 %	CHAPTER 3

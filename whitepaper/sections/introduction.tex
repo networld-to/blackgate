@@ -1,0 +1,44 @@
+% -*- root: ../distributed_hosting_whitepaper.tex -*-
+
+This part gives a motivation and a general overview about the
+\textit{Distributed Hosting Engine}. It introduces some concepts that will be
+explained in more detail in the next part. If you are looking for a detailed specification you can directly go to Part \ref{part:specifications}.
+
+\section{Hosting Paradigm Shift}\index{Hosting Paradigm Shift}
+
+This whitepaper specifies a new protocol and blockchain that has
+the potential to change the current hosting paradigm. Instead of retrieving
+pages from a specific location, they are hosted directly on end-user
+devices. The distributed hosting algorithm and protocol, specified here, takes
+care of the optimal location for each page. By taking into account different
+metrics, like response times, availability and/or relevance, the perfect place
+for each page will be found after some time. This not only increases the
+performance for single page accesses, but reduced also network load and hence
+increases the overall network health.
+
+Additional to the increased performance, the underlying blockchain assures the
+correctness and validity of each page, also, or especially, if hosted by a
+random node in the network. This validation mechanism is then used to create a
+reputation system, allowing blocking of malicious nodes that have a reputation
+score that is lower than a threshold value.
+
+This mechanism, together with the page distribution algorithm, makes the
+network self-managing, self-healing and robust against changes.
+
+By design the \textit{Distributed Hosting Engine} is censorship resistance,
+but only under the assumption that there are enough nodes that are willing to
+host the page. This moves responsibility what could be hosted from a central
+authority to the collective.
+
+From a commercial point of view the here proposed approach allows the creation
+of an interoperable hosting ecosystem. Each hosting provider acts as clone and
+has no direct access to the page, but can support the user with additional
+(paid or free) services and hosting space. By design a switch from one
+hosting provider to another one does not affect the hosting of the page, nor
+the page itself. Technical there is not even a migration happening, only a
+switch from one page creation tool to another one.
+
+\section{Use Cases}\index{Use Cases}
+
+\textbf{TODO:} Explains here different use cases based on user stories of Jane
+and John Doe.

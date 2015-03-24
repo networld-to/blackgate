@@ -2,42 +2,50 @@
 \defcounter {refsection}{0}\relax 
 \select@language {english}
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{\@mypartnumtocformat {I}{Introduction}}{5}{part.1}
+\contentsline {part}{\@mypartnumtocformat {I}{Overview}}{5}{part.1}
 \ttl@starttoc {default@1}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {1}Introduction}{7}{chapter.1}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.1}Hosting Paradigm Shift}{7}{section.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.2}Use Cases}{7}{section.1.2}
+\contentsline {section}{\numberline {1.2}Use Cases}{8}{section.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{\@mypartnumtocformat {II}{Specifications}}{9}{part.2}
+\contentsline {chapter}{\numberline {2}Ecosystem}{9}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Hosting Provider}{9}{section.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Complementary Services}{9}{section.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {part}{\@mypartnumtocformat {II}{Specifications}}{11}{part.2}
 \ttl@stoptoc {default@1}
 \ttl@starttoc {default@2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {2}Blockchain Specification}{11}{chapter.2}
+\contentsline {chapter}{\numberline {3}Blockchain Specification}{13}{chapter.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.1}Transaction Definition}{11}{section.2.1}
+\contentsline {section}{\numberline {3.1}Transaction Definition}{13}{section.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.1}UPDATE Transaction Definition}{11}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {3.1.1}UPDATE Transaction Definition}{13}{subsection.3.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.2}CLONE Transaction Definition}{12}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {3.1.2}CLONE Transaction Definition}{14}{subsection.3.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.2}Block Definition}{12}{section.2.2}
+\contentsline {section}{\numberline {3.2}Block Definition}{14}{section.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Protocol Specification}{13}{chapter.3}
+\contentsline {section}{\numberline {3.3}Mining Process}{14}{section.3.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Blockchain Overlay Network}{13}{section.3.1}
+\contentsline {chapter}{\numberline {4}Protocol Specification}{15}{chapter.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Data Overlay Network}{13}{section.3.2}
+\contentsline {section}{\numberline {4.1}Blockchain Overlay Network}{15}{section.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Hosting Algorithm}{13}{section.3.3}
+\contentsline {section}{\numberline {4.2}Data Overlay Network}{15}{section.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{\@mypartnumtocformat {III}{Appendix}}{15}{part.3}
+\contentsline {section}{\numberline {4.3}Hosting Algorithm}{15}{section.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {part}{\@mypartnumtocformat {III}{Appendix}}{17}{part.3}
 \ttl@stoptoc {default@2}
 \ttl@starttoc {default@3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Bibliography}}{17}{chapter*.2}
+\contentsline {chapter}{\leavevmode {\color {ocre}Bibliography}}{19}{chapter*.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Index}}{19}{section*.3}
+\contentsline {chapter}{\leavevmode {\color {ocre}Index}}{21}{section*.3}
 \contentsfinish 

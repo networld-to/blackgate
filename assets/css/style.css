@@ -63,7 +63,7 @@ body {
 .mb {margin-bottom: 50px;}
 .mtb {margin-top: 50px; margin-bottom: 50px;}
 .mtb2 { margin-top: 100px; margin-bottom: 100px;}
-.ptb {padding-top: 80px; padding-bottom: 80px;}
+.ptb {padding-top: 40px; padding-bottom: 80px;}
 
 .clear {
 	clear: both;
@@ -205,7 +205,7 @@ input {
 	padding-top: 5px;
 	background-attachment: relative;
 	background-position: center center;
-	min-height: 700px;
+	min-height: 600px;
 	width: 100%;
 
     -webkit-background-size: 100%;

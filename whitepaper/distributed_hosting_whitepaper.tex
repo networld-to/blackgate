@@ -58,16 +58,16 @@
 \begingroup
 \thispagestyle{empty}
 \begin{tikzpicture}[remember picture,overlay]
-\coordinate [below=12cm] (midpoint) at (current page.north);
+\coordinate [below=5cm] (midpoint) at (current page.north);
 \node at (current page.north west)
 {\begin{tikzpicture}[remember picture,overlay]
 \node[anchor=north west,inner sep=0pt] at (0,0) {\includegraphics[width=\paperwidth]{background}}; % Background image
 \draw[anchor=north] (midpoint) node [fill=ocre!30!white,fill opacity=0.6,text
 opacity=1,inner
 sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centering
-    Distributed Hosting\\[15pt] % Book title
-{\Large A Blockchain Based Distributed Hosting Engine}\\[20pt] % Subtitle
-{\Large Alex Oberhauser, Stavros Champilomatis and Maria Efthimiadou}}}; % Author name
+    {\color{white} Distributed Hosting}\\[15pt] % Book title
+{\Large {\color{white} A Blockchain Based Distributed Hosting Engine}}\\[20pt] % Subtitle
+{\normalsize {\color{white} Alex Oberhauser, Stavros Champilomatis and Maria Efthimiadou}}}}; % Author name
 \end{tikzpicture}};
 \end{tikzpicture}
 \vfill
@@ -83,13 +83,13 @@ sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centerin
 
 \noindent Copyright \copyright\ 2015 Alex Oberhauser, Stavros Champilomatis and Maria Efthimiadou\\ % Copyright notice
 
-\noindent \textsc{Published by Publisher}\\ % Publisher
+\noindent \textsc{Published by the \textit{Distributed Hosting} team}\\ % Publisher
 
-\noindent \textsc{TODO}\\ % URL
+\noindent \textsc{http://blackgate.networld.to}\\ % URL
 
-\noindent Licensed under the Creative Commons Attribution-NonCommercial 3.0 Unported License (the ``License''). You may not use this file except in compliance with the License. You may obtain a copy of the License at \url{http://creativecommons.org/licenses/by-nc/3.0}. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \textsc{``as is'' basis, without warranties or conditions of any kind}, either express or implied. See the License for the specific language governing permissions and limitations under the License.\\ % License information
+\noindent This work is licensed under the Creative Commons Attribution 4.0 International License. To view this license visit \url{http://creativecommons.org/licenses/by/4.0/}.\\ % License information
 
-\noindent \textit{First printing, April 2015} % Printing/edition date
+\noindent \textit{First released, March 2015} % Printing/edition date
 
 %------------------------------------------------------------------------------
 %	TABLE OF CONTENTS
@@ -119,6 +119,9 @@ sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centerin
 \chapter{Introduction}
 \input{sections/introduction.tex}
 
+\chapter{Empowering Technology}
+\input{sections/empowering_technology.tex}
+
 \chapter{Ecosystem}
 \input{sections/ecosystem.tex}
 
@@ -132,7 +135,7 @@ sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centerin
 %	CHAPTER 2
 %------------------------------------------------------------------------------
 
-\chapterimage{chapter_head_1.pdf} % Chapter heading image
+\chapterimage{chapter_head_2.pdf} % Chapter heading image
 
 \chapter{Blockchain Specification}
 
@@ -142,11 +145,30 @@ sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centerin
 \section{Block Definition}\index{Block Definition}
 
 \section{Mining Process}\index{Mining Process}
+\input{sections/mining_process.tex}
 
 %----------------------------------------------------------------------------------------
 %	CHAPTER 3
 %----------------------------------------------------------------------------------------
 \chapter{Protocol Specification}
+
+In Figure \ref{fig:data_cloud_blockchain} the relationship between the page
+content (html, css, javascript, images...), in the middle cloud, the data
+(above) and blockchain overlay network (below) is shown. The network that
+manages the page content has not to be the same as the blockchain network, but
+they maybe nearly identical or overlapping. The page content is not part of
+the blockchain, but referenced from it. This allows to have no page content
+size limit and the data exchange could be optimized.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.75\textwidth]{pictures/data_cloud_blockchain.png}
+\caption{Relationship between blockchain and page content from a network
+perspective.}
+\label{fig:data_cloud_blockchain}
+\index{Overlay Networks Figure}
+\end{figure}
+
 
 \section{Blockchain Overlay Network}\index{Blockchain Overlay Network}
 \section{Data Overlay Network}\index{Data Overlay Network}
@@ -170,7 +192,7 @@ sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centerin
 %\addcontentsline{toc}{section}{Articles}
 %\addcontentsline{toc}{section}{Articles}
 %\printbibliography[heading=bibempty,type=article]
-\nocite{*}
+%\nocite{*}
 \printbibliography[heading=bibempty]
 
 %----------------------------------------------------------------------------------------

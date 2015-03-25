@@ -1,4 +1,5 @@
 % -*- root: ../distributed_hosting_whitepaper.tex -*-
+
 This section defines transactions and their relationship to each other and to
 external data. It also defines a (de-)serialization format to and
 from the binary format that is transferred over the wire. In Figure
@@ -44,7 +45,7 @@ related checksums.
     blockchain. For increased compatibility the MAGNET URI scheme is used.\\
     \hline
     \textbf{SnapshotChecksum} & Checksum of the Snapshot content, used to
-    verify if the downloaded data.\\
+    verify the downloaded data.\\
     \hline
     \textbf{ResponseChecksum} & Checksums for all endpoints of this page.
     Makes each page verifiable and hence could be served by a random node. If

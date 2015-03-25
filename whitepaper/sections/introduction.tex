@@ -2,7 +2,40 @@
 
 This part gives a motivation and a general overview about the
 \textit{Distributed Hosting Engine}. It introduces some concepts that will be
-explained in more detail in the next part. If you are looking for a detailed specification you can directly go to Part \ref{part:specifications}.
+explained in more detail in the next part. If you are looking for a detailed
+specification you can directly go to Part \ref{part:specifications}.
+
+The here presented \textit{Distributed Hosting Engine} is designed with the
+following properties in mind:
+
+\begin{description}
+\item[Self-Managed Overlay Network] Hosted pages are distributed between
+nodes, dependent on different metrics. This increases not only performance,
+but makes the network also robust against malicious nodes, failures and other
+expected or unexpected changes.
+\item[Hosting from Everywhere] By design pages can be hosted behind NATs (no
+public IP) and Firewalls, making the participation of mobile nodes possible.
+\item[Privacy Protecting] The blockchain, nor the protocol, does expose
+IPs, locations or any other privacy critical data.
+\item[Distributed] There is no central authority, nor should there be any
+central infrastructure.
+\end{description}
+
+\section{Terminology}\index{Terminology}
+
+\begin{description}
+\item[Blockchain]
+\item[Block]
+\item[Genesis Block]
+\item[Transaction]
+\item[Protocol]
+\item[Content Creator]
+\item[Co-Host]
+\item[Page]
+\item[Snapshot]
+\item[Node]
+\item[Overlay Network]
+\end{description}
 
 \section{Hosting Paradigm Shift}\index{Hosting Paradigm Shift}
 
@@ -30,15 +63,32 @@ but only under the assumption that there are enough nodes that are willing to
 host the page. This moves responsibility what could be hosted from a central
 authority to the collective.
 
-From a commercial point of view the here proposed approach allows the creation
-of an interoperable hosting ecosystem. Each hosting provider acts as clone and
-has no direct access to the page, but can support the user with additional
-(paid or free) services and hosting space. By design a switch from one
-hosting provider to another one does not affect the hosting of the page, nor
-the page itself. Technical there is not even a migration happening, only a
-switch from one page creation tool to another one.
+From an economical point of view, the here proposed approach, allows the
+creation of an interoperable hosting ecosystem. Each hosting provider acts as
+clone and has no direct access to the page, but can support the user with
+additional (paid or free) services and hosting space. By design a switch from
+one hosting provider to another one does not affect the hosting of the page,
+nor the page itself. Technical there is not even a migration happening, only a
+switch from one complementary service to another one.
 
 \section{Use Cases}\index{Use Cases}
 
-\textbf{TODO:} Explains here different use cases based on user stories of Jane
-and John Doe.
+\subsection{Simple Blog Hosting}
+
+Jane Doe creates locally a new blog with the help of the jekyll static site
+generator \cite{Preston-Werner2015}. The \textit{Distributed Hosting Engine}
+software takes in the background care of the generation of a new blockchain
+for this page and the distribution to a bunch of neighbour nodes. After some
+time, when the page was successfully distributed, Jane switches off her
+laptop. Even though offline John can access her blog, because he has
+previously cloned the page content and has the complete blockchain locally.
+
+\subsection{Shared Access with Optional Paid Service}
+
+John and Jane Doe share access to the same blog. Both have access to the same,
+related blockchain of this page. John is not familiar with website
+programming, so he decides to pay for a service in order to have a higher
+level frontend that allows him to generate pages via a wizard. Jane on the
+other side is a senior web developer and decides not to pay for any service,
+but to develop the page by her own without using an external service and hence
+for free.

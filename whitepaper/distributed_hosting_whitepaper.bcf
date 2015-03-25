@@ -1968,7 +1968,9 @@
     <bcf:datasource type="file" datatype="bibtex">bibliography.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="0">*</bcf:citekey>
+    <bcf:citekey order="1">Preston-Werner2015</bcf:citekey>
+    <bcf:citekey order="2">nakamoto2008bitcoin</bcf:citekey>
+    <bcf:citekey order="3">castro1999practical</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="nyt" type="entry" sortscheme="nyt">
   <bcf:sorting>

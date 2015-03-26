@@ -1,0 +1,31 @@
+{
+  "name": "blockchain_handler",
+  "version": "0.0.1",
+  "description": "The Distributed Hosting Blockchain Handler Component",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:networld-to/blackgate.git"
+  },
+  "keywords": [
+    "blockchain",
+    "distributed",
+    "hosting"
+  ],
+  "author": "Alex Oberhauser <alex.oberhauser@networld.to>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/networld-to/blackgate/issues"
+  },
+  "homepage": "https://github.com/networld-to/blackgate",
+  "dependencies": {
+    "binary": ">=0.2.5 <0.3",
+    "colors": "^1.0.3",
+    "crypto": "0.0.3",
+    "enum": "^2.0.0",
+    "hexy": "^0.2.7"
+  }
+}

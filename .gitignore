@@ -19,6 +19,8 @@ venv
 *.lot
 *.maf
 *.mtc
+*.ptc
+*.xwm
 *.mtc1
 *.out
 *.synctex.gz

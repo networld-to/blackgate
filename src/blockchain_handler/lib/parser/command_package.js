@@ -1,6 +1,7 @@
 var hexy = require('hexy');
 var Util = require('../util.js');
 var Block = require('../schema/block.js').Block;
+var Version = require('../schema/version.js').Version;
 
 var CommandPackage = exports.CommandPackage = function CommandPackage(rawData) {
   if ("object" !== typeof rawData || rawData.length < Util.PACKAGE_HEADER_LENGTH ) {
@@ -36,6 +37,8 @@ CommandPackage.prototype.getPayload = function() {
 
   if ( this.getCommandString() == 'BLOCK' ) {
     return Block.deserialize(payload);
+  } else if ( this.getCommandString() == 'VERSION' ) {
+    return Version.deserialize(payload);
   }
 };
 

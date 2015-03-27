@@ -26,7 +26,7 @@ Block.prototype.getTimestamp = function() {
 
 Block.prototype.calcHash = function() {
   var header = this.getHeader();
-  return Util.sha256(header);
+  return Util.doubleSha256(header);
 };
 
 Block.prototype.serialize = function() {

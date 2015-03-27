@@ -7,7 +7,7 @@ var CommandPackage = require('./lib/parser/command_package.js').CommandPackage;
 var format = {};
 format.caps = 'upper';
 
-var client = net.connect(1337, '127.0.0.1', function() {
+var client = net.connect(8123, '127.0.0.1', function() {
   console.log('[*] Connected to server!'.green);
   client.end('');
 });

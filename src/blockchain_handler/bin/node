@@ -1,0 +1,127 @@
+#!/usr/bin/env node
+'use strict';
+
+var net = require('net');
+var colors = require('colors');
+
+var Util = require('../lib/util.js');
+//var PeerHandler = require('./lib/peer_handler.js').PeerHandler;
+var Block = require('../lib/schema/block.js').Block;
+var CommandPackage = require('../lib/parser/command_package.js').CommandPackage;
+
+var ip = '127.0.0.1';
+var port = 8123; // change that port
+
+/**
+ * Simulation of BLOCK message
+ */
+function sendBlock() {
+  var blk = new Block({ version: 0xabcdef27, timestamp: Util.timestamp() });
+
+  // A hash value of the hostname of the creator, from the genesis block.
+  // (sha256 of first hostname)
+  var payload = blk.serialize();
+
+  // Create a first command
+  var magicNo = Util.doubleSha256('hello'); // The blockchain identifier aka. magic number
+
+  var command = new Buffer(1);
+  command.writeUInt8(Util.COMMANDS.get('BLOCK').value);
+
+  var payloadSize = new Buffer(4);
+  payloadSize.writeUInt32BE(payload.length);
+
+  var checksum = blk.calcHash().slice(0, 4);
+
+  return Buffer.concat([magicNo, command, payloadSize, checksum, payload ]);
+}
+
+var server = net.createServer(function (socket) {
+  // New client connected, waiting for command message
+  socket.on('data', function(data) {
+    var pkg = new CommandPackage(data);
+    var command_string = pkg.getCommandString();
+    console.log('************************************************** BEGIN NEW CONNECTION: '.cyan + command_string.cyan + ' ****'.cyan);
+    console.log('--- BEGIN Raw Data ---'.yellow);
+    console.log(pkg.toString());
+    console.log('--- END Raw Data   ---\r\n'.yellow);
+
+    var command = pkg.getCommandString();
+    switch(command) {
+      case 'VERSION':
+        // TODO: PeerHandler manages this node. If new it adds it to the peer
+        // list.
+        console.log("MagicNo     : ".yellow + pkg.getMagicNo());
+        console.log("Command     : ".yellow + command_string + " (" + pkg.getCommand() + ")");
+        console.log("Payload Size: ".yellow + pkg.getPayloadSize() + " Bytes");
+        var checksum = pkg.getChecksum();
+        console.log("Checksum    : ".yellow + checksum);
+
+        var payload = pkg.getPayload();
+        if ( payload.verify(checksum) ) {
+          console.log("VERSION Payload".yellow);
+          console.log("|-> Version : ".yellow + "0x" + payload.version.toString(16));
+          console.log("|-> Services: ".yellow + "0x" + payload.services.toString(16));
+          console.log("|-> Time    : ".yellow + payload.getTimestamp());
+        } else {
+          console.log("ERROR: Payload Checksum Failed!".red);
+        }
+        /**
+         * BEGIN VERSION_ACK
+         */
+        var magicNo = Util.doubleSha256('hello');
+
+        var command = new Buffer(1);
+        command.writeUInt8(Util.COMMANDS.get('VERSION_ACK').value);
+
+        var payloadSize = new Buffer(4);
+        payloadSize.writeUInt32BE(0);
+
+        var checksum = Util.doubleSha256('').slice(0, 4);
+
+        socket.write(Buffer.concat([ magicNo, command, payloadSize, checksum ]));
+        /**
+         * END VERSION_ACK
+         */
+        break;
+      case 'BLOCK_REQUEST':
+        /**
+         * Check if there is a next block in this blockchain (MagicNo), if so
+         * send it to the requesting node. This code only simulates the block
+         * sending part by sending a default block.
+         */
+        socket.end(sendBlock());
+        break;
+      case 'BLOCK':
+        // TODO: Validate and store the received block.
+        console.log("MagicNo     : ".yellow + pkg.getMagicNo());
+        console.log("Command     : ".yellow + pkg.getCommandString() + " (" + pkg.getCommand() + ")");
+        console.log("Payload Size: ".yellow + pkg.getPayloadSize() + " Bytes");
+        console.log("Checksum    : ".yellow + pkg.getChecksum());
+
+        var payload = pkg.getPayload();
+        console.log("BLOCK Payload".yellow);
+        console.log("|-> Version : ".yellow + "0x" + payload.version.toString(16));
+        console.log("|-> Time    : ".yellow + payload.getTimestamp());
+        break;
+      case 'TRX':
+        // TODO: Validate and store the received transaction.
+        break;
+      case 'CONFIRM_TRX':
+        break;
+    }
+    console.log('************************************************** END   NEW CONNECTION: '.cyan + command_string.cyan + ' ****\n'.cyan);
+
+  });
+});
+
+// Recover from all uncaught exception, without crashing.
+process.on("uncaughtException", function(err) {
+  console.log("[!] ".red + err.toString().red);
+});
+
+server.listen(port, ip, function() {
+  console.log("[*] Starting blockchain handler on ".green +
+      ip.blue + ":".blue + port.toString().blue);
+});
+

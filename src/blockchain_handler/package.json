@@ -2,8 +2,9 @@
   "name": "blockchain_handler",
   "version": "0.0.1",
   "description": "The Distributed Hosting Blockchain Handler Component",
-  "main": "server.js",
+  "main": "./bin/node",
   "scripts": {
+    "start": "node ./bin/node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +27,7 @@
     "colors": "^1.0.3",
     "crypto": "0.0.3",
     "enum": "^2.0.0",
+    "forever": "^0.14.1",
     "hexy": "^0.2.7"
   }
 }

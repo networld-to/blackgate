@@ -61,6 +61,10 @@ related checksums.
 
 \subsection{CLONE Transaction Definition}
 
+\textbf{TODO:} This transaction can be merge with the UPDATE transaction. They
+do not differ too  much, except that they have different Flags content and
+that the CLONE transaction does not include all fields.
+
 Clone transactions are created and propagated by all hosts that start hosting
 a page or if they receive a new update transaction. This transactions always
 link back to exactly one update transaction.

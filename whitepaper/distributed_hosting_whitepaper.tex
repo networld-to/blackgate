@@ -61,16 +61,16 @@
 \begingroup
 \thispagestyle{empty}
 \begin{tikzpicture}[remember picture,overlay]
-\coordinate [below=5cm] (midpoint) at (current page.north);
+\coordinate [below=8cm] (midpoint) at (current page.north);
 \node at (current page.north west)
 {\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=north west,inner sep=0pt] at (0,0) {\includegraphics[width=\paperwidth]{background}}; % Background image
-\draw[anchor=north] (midpoint) node [fill=ocre!30!white,fill opacity=0.6,text
+\node[anchor=north west,inner sep=0pt] at (0,0) {\includegraphics[width=\paperwidth]{background1}}; % Background image
+\draw[anchor=north] (midpoint) node [fill=ocre!30!,fill opacity=0.6,text
 opacity=1,inner
 sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centering
-    {\color{white} Distributed Hosting}\\[15pt] % Book title
-{\Large {\color{white} A Blockchain Based Distributed Hosting Engine}}\\[20pt] % Subtitle
-{\normalsize {\color{white} Alex Oberhauser, Stavros Champilomatis and Maria Efthimiadou}}}}; % Author name
+    Distributed Hosting\\[15pt] % Book title
+{\Large A Blockchain Based Distributed Hosting Engine}\\[20pt] % Subtitle
+{\normalsize Alex Oberhauser, Stavros Champilomatis and Maria Efthimiadou}}}; % Author name
 \end{tikzpicture}};
 \end{tikzpicture}
 \vfill
@@ -122,8 +122,12 @@ sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centerin
 \chapter{Introduction}
 \input{sections/introduction.tex}
 
+\chapterimage{chapter_head_4.pdf} % Chapter heading image
+
 \chapter{Empowering Technology}
 \input{sections/empowering_technology.tex}
+
+\chapterimage{chapter_head_5.pdf} % Chapter heading image
 
 \chapter{Ecosystem}
 \input{sections/ecosystem.tex}
@@ -138,7 +142,7 @@ sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centerin
 %	CHAPTER 2
 %------------------------------------------------------------------------------
 
-\chapterimage{chapter_head_2.pdf} % Chapter heading image
+\chapterimage{chapter_head_3.pdf} % Chapter heading image
 
 \chapter{Blockchain Specification}
 
@@ -146,8 +150,7 @@ sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centerin
 \input{sections/transaction_definition.tex}
 
 \section{Block Definition}\index{Block Definition}
-\textbf{TODO:} Define here the block as transmitted via the network and how it
-will be stored (slightly different).
+\input{sections/block_definition.tex}
 
 \section{Mining Process}\index{Mining Process}
 \input{sections/mining_process.tex}
@@ -179,15 +182,15 @@ perspective.}
 \section{Data Overlay Network}\index{Data Overlay Network}
 \section{Hosting Algorithm}\index{Hosting Algorithm}
 
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 %	PART
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 \part{Appendix}
 
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
-%----------------------------------------------------------------------------------------
-
+%-----------------------------------------------------------------------------
+\chapterimage{chapter_head_6.pdf} % Chapter heading image
 \chapter*{Bibliography}
 \addcontentsline{toc}{chapter}{\textcolor{ocre}{Bibliography}}
 %\section*{Books}

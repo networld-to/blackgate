@@ -8,6 +8,7 @@
   Booktitle                = {OSDI},
   Year                     = {1999},
   Pages                    = {173--186},
+  Url                      = {http://www.pmg.lcs.mit.edu/papers/osdi99.pdf},
   Volume                   = {99},
 
   Owner                    = {Alex Oberhauser},

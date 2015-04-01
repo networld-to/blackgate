@@ -13,6 +13,28 @@ var COMMANDS = exports.COMMANDS = new Enum({
   'CONFIRM_TRX'   : 0x08
 });
 
+var TRX_FIELDS_SIZE = exports.TRX_FIELDS_SIZE = {
+	'TransactionID'      	: 32,
+	'ParentID'           	: 32,
+	'Type'					: 1,
+	'ScriptSigLength'    	: 4,
+	'HostnameLength'     	: 4,
+	'SnapshotRefLength'     : 4,
+	'SnapshotChecksum'      : 32,
+	'ResponseChecksumLength': 4
+};
+
+var BLOCK_FIELDS_SIZE = exports.BLOCK_FIELDS_SIZE = {
+	'SignatureLength'       : 4,
+	'BlockHeader'			: 76
+};
+
+var BLOCKHEADER_FIELDS_SIZE = exports.BLOCKHEADER_FIELDS_SIZE = {
+	'Version'      			: 4,
+	'HashPrevBlock'       	: 32,
+	'HashMerkelRoot'		: 32,
+	'Time'					: 8
+};
 
 var sha256 = exports.sha256 = function (data) {
     return new Buffer(crypto.createHash('sha256').update(data).digest('binary'), 'binary');
@@ -26,3 +48,4 @@ var doubleSha256 = exports.doubleSha256 = function (data) {
 var timestamp = exports.timestamp = function() {
   return Math.round(+new Date()/1000);
 }
+

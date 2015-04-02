@@ -16,7 +16,10 @@
     "distributed",
     "hosting"
   ],
-  "author": "Alex Oberhauser <alex.oberhauser@networld.to>",
+  "contributors": [
+    "Alex Oberhauser <alex.oberhauser@networld.to>",
+    "Stavros Champilomatis <schampilomatis@gmail.com>"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/networld-to/blackgate/issues"

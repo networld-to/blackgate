@@ -1,0 +1,36 @@
+{
+  "name": "proxy",
+  "version": "0.0.1",
+  "description": "The Distributed Hosting Proxy Component",
+  "main": "./bin/node",
+  "scripts": {
+    "start": "node ./bin/proxy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:networld-to/blackgate.git"
+  },
+  "keywords": [
+    "blockchain",
+    "distributed",
+    "hosting"
+  ],
+  "contributors": [
+    "Alex Oberhauser <alex.oberhauser@networld.to>",
+    "Stavros Champilomatis <schampilomatis@gmail.com>"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/networld-to/blackgate/issues"
+  },
+  "homepage": "https://github.com/networld-to/blackgate",
+  "dependencies": {
+    "colors": "^1.0.3",
+    "crypto": "0.0.3",
+    "request": "^2.54.0",
+    "socks5-http-client": "^1.0.1",
+    "zmq": "^2.10.0"
+  },
+  "engine": "node >= 0.12.0"
+}

@@ -28,6 +28,8 @@
   "dependencies": {
     "colors": "^1.0.3",
     "crypto": "0.0.3",
+    "dotenv": "^1.1.0",
+    "node-cache": "^1.1.0",
     "request": "^2.54.0",
     "socks5-http-client": "^1.0.1",
     "zmq": "^2.10.0"

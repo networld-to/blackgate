@@ -22,21 +22,47 @@ var color = require("colors");
 var request = require('request');
 var Agent = require('socks5-http-client/lib/Agent');
 
+var NodeCache = require("node-cache");
+var notificationCache = new NodeCache( { stdTTL: 100, checkperiod: 120 } );
+
+
 /**
- * Proxy Configuration
+ * Proxy Configuration - see `.env` file
  */
-var port = 8080;
-var ip = "127.0.0.1"
+require('dotenv').load();
+
+var port = process.env.PORT;
+var ip = process.env.IP;
+var newBlockchainSocketString = process.env.NEW_BLOCKCHAIN_SOCKET;
+
+/**
+ * ZeroMQ inter-component communication
+ */
+var zmq = require('zmq')
+  , newBlockchainSocket = zmq.socket('push');
+newBlockchainSocket.bindSync(newBlockchainSocketString);
+
+var triggerBlockchainFetching = function(hostname) {
+  var magicno = doubleSha256(hostname).toString('hex');
+
+  if ( JSON.stringify(notificationCache.get(hostname)) === '{}' ) {
+    notificationCache.set(hostname, magicno);
+    newBlockchainSocket.send(JSON.stringify({
+      "hostname": hostname,
+      "magicno": magicno
+    }));
+  }
+};
 
 /**
  * Helper Method
  */
 var sha256 = function (data) {
-    return new Buffer(crypto.createHash('sha256').update(data).digest('binary'), 'binary');
+  return new Buffer(crypto.createHash('sha256').update(data).digest('binary'), 'binary');
 };
 
 var doubleSha256 = function (data) {
-    return sha256(sha256(data));
+  return sha256(sha256(data));
 };
 
 /**
@@ -62,6 +88,7 @@ var proxy = http.createServer(function(req, resp) {
     resp.headers = res.headers;
     resp.end(res.body, 'binary');
 
+    triggerBlockchainFetching(host);
     console.log("Hostname         : %s".yellow, host.cyan);
     console.log("Requested Content: %s".yellow, link.toString().cyan);
     console.log("MagicNo          : 0x%s".yellow, doubleSha256(host).toString('hex').green);
@@ -79,8 +106,8 @@ proxy.on('connect', function(req, cltSocket, head) {
   var srvUrl = url.parse('http://' + req.url);
   var srvSocket = net.connect(srvUrl.port, srvUrl.hostname, function() {
     cltSocket.write('HTTP/1.1 200 Connection Established\r\n' +
-                    'Proxy-Agent: BlackGate-Proxy <http://blackgate.networld.to>\r\n' +
-                    '\r\n');
+        'Proxy-Agent: BlackGate-Proxy <http://blackgate.networld.to>\r\n' +
+        '\r\n');
     srvSocket.write(head, 'binary');
     srvSocket.pipe(cltSocket);
     cltSocket.pipe(srvSocket);

@@ -25,6 +25,7 @@ var Agent = require('socks5-http-client/lib/Agent');
 var NodeCache = require("node-cache");
 var notificationCache = new NodeCache( { stdTTL: 100, checkperiod: 120 } );
 
+var Util = require("../lib/util.js");
 
 /**
  * Proxy Configuration - see `.env` file
@@ -43,7 +44,7 @@ var zmq = require('zmq')
 newBlockchainSocket.bindSync(newBlockchainSocketString);
 
 var triggerBlockchainFetching = function(hostname) {
-  var magicno = doubleSha256(hostname).toString('hex');
+  var magicno = Util.doubleSha256(hostname).toString('hex');
 
   if ( JSON.stringify(notificationCache.get(hostname)) === '{}' ) {
     notificationCache.set(hostname, magicno);
@@ -52,17 +53,6 @@ var triggerBlockchainFetching = function(hostname) {
       "magicno": magicno
     }));
   }
-};
-
-/**
- * Helper Method
- */
-var sha256 = function (data) {
-  return new Buffer(crypto.createHash('sha256').update(data).digest('binary'), 'binary');
-};
-
-var doubleSha256 = function (data) {
-  return sha256(sha256(data));
 };
 
 /**
@@ -91,7 +81,7 @@ var proxy = http.createServer(function(req, resp) {
     triggerBlockchainFetching(host);
     console.log("Hostname         : %s".yellow, host.cyan);
     console.log("Requested Content: %s".yellow, link.toString().cyan);
-    console.log("MagicNo          : 0x%s".yellow, doubleSha256(host).toString('hex').green);
+    console.log("MagicNo          : 0x%s".yellow, Util.doubleSha256(host).toString('hex').green);
     console.log("Response Checksum: 0x%s\n".yellow, result.toString().green);
   });
 

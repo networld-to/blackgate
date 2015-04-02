@@ -1,7 +1,7 @@
 # Reference Implementation
 
 The _Distributed Hosting Engine_ comes with a reference implementation that follows the
-specification as described in the [Whitepaper] and complementary documents. This 
+specification as described in the [Whitepaper] and complementary documents. This
 implementation can be found in this directory.
 
 ## The Components
@@ -25,22 +25,34 @@ The communication between components is done via [ZeroMQ] queues, for the follow
 * ZeroMQ is a broker-less queueing library. That means there is no need run a queueing server.
 * Support for different pattern, like pipeling or pub/sub. More powerful patterns allow the
 implementation of failsafe nodes, without much efforts and also a more natural integration.
-* Support for local or remote communications. That allows to spread the components accross 
+* Support for local or remote communications. That allows to spread the components accross
 different machines.
 * The robust protocol makes the whole communication more stable and the implementation simpler.
-No matter what components goes temporary down, the communication can continue afterwords 
+No matter what components goes temporary down, the communication can continue afterwords
 without problems.
 
 ### Blockchain Handler -> Hosting Component
 
-The _Blockchain Handler_ triggers the download of a snapshot by sending a message to the 
-_Hosting Component_. Such a message is send each time a new _UPDATE_ transaction is received, 
+The _Blockchain Handler_ triggers the download of a snapshot by sending a message to the
+_Hosting Component_. Such a message is send each time a new _UPDATE_ transaction is received,
 as part of a _Block_
 
     {
       "time" : 1427744420, # Unix time of the received transaction
       "snapshot": "magnet:?xt=urn:btih:$snapshot_sha1&xs=magicno://$magicno_value",
-      "host": ["host1.onion","..."] # Hosts used for the BitTorrent DHT
+      "hosts": ["host1.onion","..."] # Hosts used for the BitTorrent DHT
+    }
+
+### Proxy -> Blockchain Handler
+
+If the _Proxy_ can not find a blockchain for an accessed host, it notifies the
+_Blockchain Handler_ with the following message. These messages are cached for a
+short time period, in order to avoid sending the same request multiple times.
+
+
+    {
+      "hostname": "host1.onion"
+      "magicno" : $doubleSha256 # double sha256 of hostname
     }
 
 

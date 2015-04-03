@@ -1,16 +1,19 @@
 #!/usr/bin/env node
 'use strict';
 
+require('dotenv').load();
+
 var net = require('net');
 var colors = require('colors');
 
 var Util = require('../lib/util.js');
 //var PeerHandler = require('./lib/peer_handler.js').PeerHandler;
+var Version = require('../lib/schema/version.js').Version;
 var Block = require('../lib/schema/block.js').Block;
 var CommandPackage = require('../lib/parser/command_package.js').CommandPackage;
 
 var ip = '127.0.0.1';
-var port = 8123; // change that port
+var port = process.env.BLOCKCHAIN_HANDLER_PORT; // change that port
 
 /**
  * Simulation of BLOCK message
@@ -35,6 +38,50 @@ function sendBlock() {
 
   return Buffer.concat([magicNo, command, payloadSize, checksum, payload ]);
 }
+
+/**
+ * TODO: Split the inter component communication part up into separate file.
+ */
+function sendVersion(hostname) {
+  var magicNo = Util.doubleSha256(hostname);
+  var payload = new Version().serialize();
+
+  var command = new Buffer(1);
+  command.writeUInt8(Util.COMMANDS.get('VERSION').value);
+
+  var payloadSize = new Buffer(4);
+  payloadSize.writeUInt32BE(payload.length);
+
+  var checksum = Util.doubleSha256(payload).slice(0, 4);
+
+  return Buffer.concat([magicNo, command, payloadSize, checksum, payload ]);
+}
+
+var zmq = require('zmq')
+, sock = zmq.socket('pull');
+
+sock.connect(process.env.NEW_BLOCKCHAIN_SOCKET);
+sock.on('message', function(msg){
+  var msg_json = JSON.parse(msg);
+  msg_json.hostname = '127.0.0.1'; // XXX: Delete that line, it redirects all calls to localhost
+  var client = net.connect(port, msg_json.hostname, function() {
+    client.write(sendVersion(msg_json.hostname));
+    client.setTimeout(Util.TIMEOUT, function() {
+      var node = client.address();
+      console.log("No response received from the node '".yellow + node.address.yellow + ':'.yellow + node.port.toString().yellow  + "'".yellow);
+      client.end();
+    });
+
+    client.on('data', function(data) {
+      var command = Util.COMMANDS.get(data.readUInt8(32)).key; // 32 Byte MagicNo offset
+      if ( command === 'VERSION_ACK' ) {
+        console.log('< TODO: Add here the node to the internal peer list.');
+        client.end();
+      }
+    });
+
+  });
+});
 
 var server = net.createServer(function (socket) {
   // New client connected, waiting for command message

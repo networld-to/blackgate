@@ -10,3 +10,7 @@ var doubleSha256 = exports.doubleSha256 = function (data) {
   return this.sha256(this.sha256(data));
 };
 
+var timestamp = exports.timestamp = function() {
+  return Math.round(+new Date()/1000);
+}
+

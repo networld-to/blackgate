@@ -49,7 +49,7 @@ this.server = http.createServer(function(req, resp) {
     }
   }, function(err, res) {
     if (err) {
-      log.info("[!] Request error: %s", err);
+      log.error("[!] Request error: %s", err);
       return;
     }
     var result = crypto.createHash("sha256").update(res.body, "binary").digest('hex');

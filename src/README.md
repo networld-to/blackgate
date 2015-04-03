@@ -52,7 +52,6 @@ short time period, in order to avoid sending the same request multiple times.
 
     {
       "hostname": "host1.onion"
-      "magicno" : $doubleSha256 # double sha256 of hostname
     }
 
 

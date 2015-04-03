@@ -2,12 +2,13 @@
 'use strict';
 
 var server = require('../lib/server');
+var log = require('../lib/logger');
 
 var port = process.env.PORT;
 var ip = process.env.IP;
 
 server.listen(port, ip, function() {
-  console.log("[*] Starting proxy on ".green +
-      ip.cyan + ":".cyan + port.toString().cyan);
+  log.info("[*] Starting proxy on " +
+      ip + ":" + port.toString());
 });
 

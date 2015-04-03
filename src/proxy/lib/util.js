@@ -1,9 +1,9 @@
 'use strict';
 
-var crypto = require('crypto');
+var crypt = require('crypto');
 
 var sha256 = exports.sha256 = function (data) {
-  return new Buffer(crypto.createHash('sha256').update(data).digest('binary'), 'binary');
+  return new Buffer(crypt.createHash('sha256').update(data).digest('binary'), 'binary');
 };
 
 var doubleSha256 = exports.doubleSha256 = function (data) {

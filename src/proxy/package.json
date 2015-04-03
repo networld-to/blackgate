@@ -1,10 +1,10 @@
 {
-  "name": "proxy",
+  "name": "blackgate-proxy",
   "version": "0.0.1",
   "description": "The Distributed Hosting Proxy Component",
-  "main": "./bin/node",
+  "main": "./bin/proxy",
   "scripts": {
-    "start": "node ./bin/proxy",
+    "start": "node ./bin/proxy | node_modules/.bin/bunyan",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/networld-to/blackgate",
   "dependencies": {
+    "bunyan": "^1.3.4",
     "colors": "^1.0.3",
     "crypto": "0.0.3",
     "dotenv": "^1.1.0",

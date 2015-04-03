@@ -16,7 +16,7 @@ var http = require('http');
 var url = require('url');
 
 var crypto = require("crypto");
-var color = require("colors");
+var log = require('../lib/logger');
 
 var request = require('request');
 var Agent = require('socks5-http-client/lib/Agent');
@@ -68,7 +68,7 @@ this.server = http.createServer(function(req, resp) {
     }
   }, function(err, res) {
     if (err) {
-      console.log("[!] Request error: %s", err);
+      log.info("[!] Request error: %s", err);
       return;
     }
     var result = crypto.createHash("sha256").update(res.body, "binary").digest('hex');
@@ -76,10 +76,11 @@ this.server = http.createServer(function(req, resp) {
     resp.end(res.body, 'binary');
 
     triggerBlockchainFetching(host);
-    console.log("Hostname         : %s".yellow, host.cyan);
-    console.log("Requested Content: %s".yellow, link.toString().cyan);
-    console.log("MagicNo          : 0x%s".yellow, Util.doubleSha256(host).toString('hex').green);
-    console.log("Response Checksum: 0x%s\n".yellow, result.toString().green);
+    log.debug('');
+    log.debug("Hostname         : %s", host);
+    log.debug("MagicNo          : 0x%s", Util.doubleSha256(host).toString('hex'));
+    log.debug("Requested Content: %s", link.toString());
+    log.debug("Response Checksum: 0x%s", result.toString());
   });
 
 });

@@ -11,46 +11,27 @@
  * Only HTTP connections of pages that have a related blockchain are checked.
  */
 
-var net = require('net');
-var http = require('http');
-var url = require('url');
-
-var crypto = require("crypto");
-var log = require('../lib/logger');
-
-var request = require('request');
-var Agent = require('socks5-http-client/lib/Agent');
-
-var NodeCache = require("node-cache");
-var notificationCache = new NodeCache( { stdTTL: 100, checkperiod: 120 } );
-
-var Util = require("../lib/util.js");
-
 /**
  * Proxy Configuration - see `.env` file
  */
 require('dotenv').load();
 
-var newBlockchainSocketString = process.env.NEW_BLOCKCHAIN_SOCKET;
+var net = require('net');
+var http = require('http');
+var url = require('url');
+var request = require('request');
+var Agent = require('socks5-http-client/lib/Agent');
+
+var crypto = require('crypto');
+
+var log = require('../lib/logger');
+var util = require('../lib/util.js');
+var icc = require('../lib/inter_component_communication');
+
 
 /**
  * ZeroMQ inter-component communication
  */
-var zmq = require('zmq')
-  , newBlockchainSocket = zmq.socket('push');
-newBlockchainSocket.bindSync(newBlockchainSocketString);
-
-var triggerBlockchainFetching = function(hostname) {
-  var magicno = Util.doubleSha256(hostname).toString('hex');
-
-  if ( JSON.stringify(notificationCache.get(hostname)) === '{}' ) {
-    notificationCache.set(hostname, magicno);
-    newBlockchainSocket.send(JSON.stringify({
-      "hostname": hostname,
-      "magicno": magicno
-    }));
-  }
-};
 
 /**
  * HTTP Proxy
@@ -75,10 +56,11 @@ this.server = http.createServer(function(req, resp) {
     resp.headers = res.headers;
     resp.end(res.body, 'binary');
 
-    triggerBlockchainFetching(host);
+    icc.triggerBlockchainFetching(host);
+
     log.debug('');
     log.debug("Hostname         : %s", host);
-    log.debug("MagicNo          : 0x%s", Util.doubleSha256(host).toString('hex'));
+    log.debug("MagicNo          : 0x%s", util.doubleSha256(host).toString('hex'));
     log.debug("Requested Content: %s", link.toString());
     log.debug("Response Checksum: 0x%s", result.toString());
   });

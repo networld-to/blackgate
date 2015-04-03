@@ -4,7 +4,7 @@
   "description": "The Distributed Hosting Proxy Component",
   "main": "./bin/proxy",
   "scripts": {
-    "start": "node ./bin/proxy | node_modules/.bin/bunyan",
+    "start": "LOG_LEVEL=debug node ./bin/proxy | node_modules/.bin/bunyan",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -6,15 +6,14 @@ var Transaction = exports.Transaction = function Transaction(data){
   if ("object" !== typeof data) {
     data = {};
   }
-  this.transactionId = data.transactionId || 0;
-  this.parentId = data.parentId || 0; // XXX: Default value breaks serialization.
+  this.transactionId = data.transactionId || '';
+  this.parentId = data.parentId || ''; // XXX: Default value breaks serialization.
   this.type = data.type || 0;
-  this.scriptSig = data.scriptSig || 0;
+  this.scriptSig = data.scriptSig || '';
   this.hostname = data.hostname || '';
-  this.snapshotRef = data.snapshotRef || 0;
-  this.snapshotChecksum = data.snapshotChecksum || 0; // XXX: Default value breaks serialization.
+  this.snapshotRef = data.snapshotRef || '';
+  this.snapshotChecksum = data.snapshotChecksum || ''; // XXX: Default value breaks serialization.
   this.responseChecksum = JSON.stringify(data.responseChecksum || {});
-
 }
 
 Transaction.prototype.serialize = function() {
@@ -59,7 +58,6 @@ Transaction.prototype.serialize = function() {
       responseChecksumBuf	]);
 
   var transactionId = Util.doubleSha256(trx.toString('hex'));
-  console.log(trx.toString('hex'));
   return Buffer.concat([transactionId, trx]);
 }
 

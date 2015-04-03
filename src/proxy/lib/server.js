@@ -71,7 +71,7 @@ this.server = http.createServer(function(req, resp) {
       console.log("[!] Request error: %s", err);
       return;
     }
-    var result = crypto.createHash("sha256").update(res.body, "utf8").digest('hex');
+    var result = crypto.createHash("sha256").update(res.body, "binary").digest('hex');
     resp.headers = res.headers;
     resp.end(res.body, 'binary');
 

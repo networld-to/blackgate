@@ -28,11 +28,6 @@ var log = require('../lib/logger');
 var util = require('../lib/util.js');
 var icc = require('../lib/inter_component_communication');
 
-
-/**
- * ZeroMQ inter-component communication
- */
-
 /**
  * HTTP Proxy
  */
@@ -91,4 +86,3 @@ exports.listen = function() {
 exports.close = function (callback) {
   this.server.close(callback);
 };
-

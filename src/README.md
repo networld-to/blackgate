@@ -34,13 +34,15 @@ without problems.
 ### Blockchain Handler -> Hosting Component
 
 The _Blockchain Handler_ triggers the download of a snapshot by sending a message to the
-_Hosting Component_. Such a message is send each time a new _UPDATE_ transaction is received,
-as part of a _Block_
+_Hosting Component_. Such a message is send each time a new _UPDATE_ or _DELETE_ transaction
+ is received, as part of a _Block_
 
     {
       "time" : 1427744420, # Unix time of the received transaction
-      "snapshot": "magnet:?xt=urn:btih:$snapshot_sha1&xs=magicno://$magicno_value",
+      "snapshot": "magnet:?xt=urn:btih:$snapshot_sha1",
       "hosts": ["host1.onion","..."] # Hosts used for the BitTorrent DHT
+      "type": 'UPDATE' or 'DELETE' # The type of the transaction
+      "hostname": "host1.onion"
     }
 
 ### Proxy -> Blockchain Handler

@@ -4,7 +4,7 @@
   "description": "The Distributed Hosting Component",
   "main": "./bin/hosting_component",
   "scripts": {
-    "start": "node ./bin/hosting_component",
+    "start": "LOG_LEVEL=debug node ./bin/hosting_component | node_modules/.bin/bunyan",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

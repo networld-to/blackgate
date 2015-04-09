@@ -87,8 +87,14 @@
           <a href="https://github.com/networld-to/blackgate" target="_blank">GitHub
             repository</a> or contact us via
           <a href="mailto:blackgate@networld.to">blackgate@networld.to</a></p>
-        </div><!--/col-md-6-->
-      </div><!--/row-->
+        </div>
+      </div>
+      <div class="row" style="text-align: center">
+        <div class="github-card" data-github="networld-to/blackgate" data-width="400" data-height="298" data-theme="medium"></div>
+        <script src="https://cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+      </div>
+    </div><!--/col-md-6-->
+    </div><!--/row-->
     </div><!-- /.container -->
     <div class="container">
       <div class="row">
@@ -106,99 +112,99 @@
     </div><!--/.container-->
 
     <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/retina-1.1.0.js"></script>
-    <script src="assets/js/jquery.hoverdir.js"></script>
-    <script src="assets/js/jquery.hoverex.min.js"></script>
-    <script src="assets/js/jquery.prettyPhoto.js"></script>
-    <script src="assets/js/jquery.isotope.min.js"></script>
-    <script src="assets/js/custom.js"></script>
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/bootstrap.min.js"></script>
+      <script src="assets/js/retina-1.1.0.js"></script>
+      <script src="assets/js/jquery.hoverdir.js"></script>
+      <script src="assets/js/jquery.hoverex.min.js"></script>
+      <script src="assets/js/jquery.prettyPhoto.js"></script>
+      <script src="assets/js/jquery.isotope.min.js"></script>
+      <script src="assets/js/custom.js"></script>
 
 
-    <script>
+      <script>
 // Portfolio
 (function($) {
   "use strict";
   var $container = $('.portfolio'),
-    $items = $container.find('.portfolio-item'),
+  $items = $container.find('.portfolio-item'),
     portfolioLayout = 'fitRows';
 
-    if( $container.hasClass('portfolio-centered') ) {
-      portfolioLayout = 'masonry';
-    }
+  if( $container.hasClass('portfolio-centered') ) {
+    portfolioLayout = 'masonry';
+  }
 
-    $container.isotope({
-      filter: '*',
-      animationEngine: 'best-available',
-      layoutMode: portfolioLayout,
-      animationOptions: {
+  $container.isotope({
+    filter: '*',
+    animationEngine: 'best-available',
+    layoutMode: portfolioLayout,
+    animationOptions: {
       duration: 750,
       easing: 'linear',
       queue: false
     },
     masonry: {
     }
-    }, refreshWaypoints());
+  }, refreshWaypoints());
 
-    function refreshWaypoints() {
-      setTimeout(function() {
-      }, 1000);
-    }
+  function refreshWaypoints() {
+    setTimeout(function() {
+    }, 1000);
+  }
 
-    $('nav.portfolio-filter ul a').on('click', function() {
-        var selector = $(this).attr('data-filter');
-        $container.isotope({ filter: selector }, refreshWaypoints());
-        $('nav.portfolio-filter ul a').removeClass('active');
-        $(this).addClass('active');
-        return false;
-    });
+  $('nav.portfolio-filter ul a').on('click', function() {
+    var selector = $(this).attr('data-filter');
+    $container.isotope({ filter: selector }, refreshWaypoints());
+    $('nav.portfolio-filter ul a').removeClass('active');
+    $(this).addClass('active');
+    return false;
+  });
 
-    function getColumnNumber() {
-      var winWidth = $(window).width(),
+  function getColumnNumber() {
+    var winWidth = $(window).width(),
+    columnNumber = 1;
+
+    if (winWidth > 1200) {
+      columnNumber = 5;
+    } else if (winWidth > 950) {
+      columnNumber = 4;
+    } else if (winWidth > 600) {
+      columnNumber = 3;
+    } else if (winWidth > 400) {
+      columnNumber = 2;
+    } else if (winWidth > 250) {
       columnNumber = 1;
+    }
+    return columnNumber;
+  }
 
-      if (winWidth > 1200) {
-        columnNumber = 5;
-      } else if (winWidth > 950) {
-        columnNumber = 4;
-      } else if (winWidth > 600) {
-        columnNumber = 3;
-      } else if (winWidth > 400) {
-        columnNumber = 2;
-      } else if (winWidth > 250) {
-        columnNumber = 1;
-      }
-        return columnNumber;
-      }
+  function setColumns() {
+    var winWidth = $(window).width(),
+    columnNumber = getColumnNumber(),
+    itemWidth = Math.floor(winWidth / columnNumber);
 
-      function setColumns() {
-        var winWidth = $(window).width(),
-        columnNumber = getColumnNumber(),
-        itemWidth = Math.floor(winWidth / columnNumber);
-
-        $container.find('.portfolio-item').each(function() {
-          $(this).css( {
-          width : itemWidth + 'px'
-        });
+    $container.find('.portfolio-item').each(function() {
+      $(this).css( {
+        width : itemWidth + 'px'
       });
-    }
-
-    function setPortfolio() {
-      setColumns();
-      $container.isotope('reLayout');
-    }
-
-    $container.imagesLoaded(function () {
-      setPortfolio();
     });
+  }
 
-    $(window).on('resize', function () {
+  function setPortfolio() {
+    setColumns();
+    $container.isotope('reLayout');
+  }
+
+  $container.imagesLoaded(function () {
+    setPortfolio();
+  });
+
+  $(window).on('resize', function () {
     setPortfolio();
   });
 })(jQuery);
-</script>
+      </script>
   </body>
 </html>

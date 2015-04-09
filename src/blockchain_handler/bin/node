@@ -7,14 +7,18 @@ var net = require('net');
 var colors = require('colors');
 var log = require('../lib/logger');
 
+var zmq = require('zmq')
+, sock = zmq.socket('pull');
+
 var Util = require('../../shared/util/util.js');
-//var PeerHandler = require('./lib/peer_handler').PeerHandler;
+var PeerHandler = require('../lib/peer_handler').PeerHandler;
 var Version = require('../lib/schema/version').Version;
 var Block = require('../lib/schema/block').Block;
 var CommandPackage = require('../lib/parser/command_package').CommandPackage;
 
 var ip = '127.0.0.1';
 var port = process.env.BLOCKCHAIN_HANDLER_PORT; // change that port
+
 
 /**
  * Simulation of BLOCK message
@@ -41,32 +45,17 @@ function sendBlock() {
 }
 
 /**
- * TODO: Split the inter component communication part up into separate file.
+ * Listening to new blockchain fetching requests.
+ *
+ * These requests are send by the Proxy if the blockchain of a page was not
+ * found in the database.
  */
-function sendVersion(hostname) {
-  var magicNo = Util.doubleSha256(hostname);
-  var payload = new Version().serialize();
-
-  var command = new Buffer(1);
-  command.writeUInt8(Util.COMMANDS.get('VERSION').value);
-
-  var payloadSize = new Buffer(4);
-  payloadSize.writeUInt32BE(payload.length);
-
-  var checksum = Util.doubleSha256(payload).slice(0, 4);
-
-  return Buffer.concat([magicNo, command, payloadSize, checksum, payload ]);
-}
-
-var zmq = require('zmq')
-, sock = zmq.socket('pull');
-
 sock.connect(process.env.NEW_BLOCKCHAIN_SOCKET);
 sock.on('message', function(msg){
   var msg_json = JSON.parse(msg);
   msg_json.hostname = '127.0.0.1'; // XXX: Delete that line, it redirects all calls to localhost
   var client = net.connect(port, msg_json.hostname, function() {
-    client.write(sendVersion(msg_json.hostname));
+    client.write(CommandPackage.getVersionPackage(msg_json.hostname));
     client.setTimeout(Util.TIMEOUT, function() {
       var node = client.address();
       log.warn("No response received from the node '" + node.address + ':' + node.port.toString()  + "'");
@@ -76,6 +65,7 @@ sock.on('message', function(msg){
     client.on('data', function(data) {
       var command = Util.COMMANDS.get(data.readUInt8(32)).key; // 32 Byte MagicNo offset
       if ( command === 'VERSION_ACK' ) {
+        PeerHandler.addPeer(client.address());
         log.error('< TODO: Add here the node to the internal peer list.');
         client.end();
       }
@@ -84,6 +74,9 @@ sock.on('message', function(msg){
   });
 });
 
+/**
+ * Listening on incoming connections from other BlackGate nodes.
+ */
 var server = net.createServer(function (socket) {
   // New client connected, waiting for command message
   socket.on('data', function(data) {
@@ -149,6 +142,7 @@ var server = net.createServer(function (socket) {
         var payload = pkg.getPayload();
         log.debug("BLOCK Payload".yellow);
         log.debug("|-> Version : ".yellow + "0x" + payload.version.toString(16));
+        log.debug("|-> Time    : ".yellow + payload.getTimestamp());
         log.debug("|-> Time    : ".yellow + payload.getTimestamp());
         break;
       case 'TRX':

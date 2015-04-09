@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Util = require('../lib/util');
+var Util = require('../../shared/util/util');
 var Transaction = require('../lib/schema/transaction').Transaction;
 
 describe('Transaction', function() {

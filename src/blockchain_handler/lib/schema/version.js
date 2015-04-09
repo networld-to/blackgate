@@ -50,3 +50,4 @@ Version.deserialize = function(rawVersion) {
   version.timestamp = rawVersion.readDoubleBE(12);
   return version;
 };
+

@@ -1,6 +1,6 @@
-var transaction = require('./lib/schema/transaction.js');
+var transaction = require('./lib/schema/transaction');
 var hexy = require('hexy');
-var Util = require('../shared/util/util.js');
+var Util = require('../shared/util/util');
 
 var trx  = new transaction.Transaction({
 		'parentId' : Util.doubleSha256("hello"),
@@ -10,11 +10,9 @@ var trx  = new transaction.Transaction({
 		'snapshotRef' : 'magnet:?xt=urn:ed2k:31D6CFE0D16AE931B73C59D7E0C089C0',
 		'snapshotChecksum' : Util.sha256("my_content"),
 		'responseChecksum' : {'/': Util.sha256("html_content").toString('hex')}
+	});
 
-
-	})
-
-trx_serialized = trx.serialize()
+trx_serialized = trx.serialize();
 console.log(hexy.hexy(trx_serialized));
 
 console.log(transaction.Transaction.deserialize(trx_serialized).toJSON());

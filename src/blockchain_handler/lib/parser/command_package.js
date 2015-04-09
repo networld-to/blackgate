@@ -46,3 +46,21 @@ CommandPackage.prototype.toString = function() {
   return hexy.hexy(this.data);
 };
 
+/*
+ * Creates a version package for the doubleSha256(hostname) blockchain.
+ */
+CommandPackage.getVersionPackage = function(hostname) {
+  var magicNo = Util.doubleSha256(hostname);
+  var payload = new Version().serialize();
+
+  var command = new Buffer(1);
+  command.writeUInt8(Util.COMMANDS.get('VERSION').value);
+
+  var payloadSize = new Buffer(4);
+  payloadSize.writeUInt32BE(payload.length);
+
+  var checksum = Util.doubleSha256(payload).slice(0, 4);
+
+  return Buffer.concat([magicNo, command, payloadSize, checksum, payload ]);
+}
+

@@ -41,10 +41,6 @@ Block.prototype.serialize = function() {
 };
 
 Block.deserialize = function(rawBlock) {
-  console.log('\r\n--- BEGIN Raw Block ---'.red);
-  console.log(hexy.hexy(rawBlock));
-  console.log('--- END Raw Block   ---\r\n'.red);
-
   var blk = new Block();
   blk.version = rawBlock.readUInt32BE(0);
   blk.timestamp = rawBlock.readDoubleBE(4);

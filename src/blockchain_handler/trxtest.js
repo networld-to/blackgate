@@ -1,6 +1,6 @@
 var transaction = require('./lib/schema/transaction.js');
 var hexy = require('hexy');
-var Util = require('./lib/util.js');
+var Util = require('../shared/util/util.js');
 
 var trx  = new transaction.Transaction({
 		'parentId' : Util.doubleSha256("hello"),

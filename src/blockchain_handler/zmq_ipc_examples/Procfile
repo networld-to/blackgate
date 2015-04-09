@@ -1,3 +1,0 @@
-producer: node producer.js
-node_worker: node worker.js
-python_worker: python2 worker.py

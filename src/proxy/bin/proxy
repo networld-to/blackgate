@@ -17,3 +17,8 @@ server.listen(port, ip, function() {
       ip + ":" + port.toString());
 });
 
+// Recover from all uncaught exception, without crashing.
+process.on("uncaughtException", function(err) {
+  log.fatal("[!] " + err.toString());
+});
+

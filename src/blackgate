@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+'use strict';
+
+console.log("[I] Start all BlackGate components with `npm start`!");
+console.log("[W] TODO: Implement here a command line tool for advanced users!");

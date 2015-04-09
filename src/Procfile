@@ -1,3 +1,3 @@
-blockchain_handler: (cd blockchain_handler && npm start)
-proxy: (cd proxy && npm start)
-hosting_component: (cd hosting_component && npm start)
+blockchain_handler: (cd blockchain_handler && npm start --silent)
+proxy: (cd proxy && npm start --silent)
+hosting_component: (cd hosting_component && npm start --silent)

@@ -11,11 +11,6 @@
  * Only HTTP connections of pages that have a related blockchain are checked.
  */
 
-/**
- * Proxy Configuration - see `.env` file
- */
-require('dotenv').load();
-
 var net = require('net');
 var http = require('http');
 var url = require('url');

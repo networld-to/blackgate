@@ -16,7 +16,11 @@
     "distributed",
     "hosting"
   ],
-  "author": "Maria Efthymiadou <maria.g.efthymiadou@gmail.com>",
+  "contributors": [
+    "Maria Efthymiadou <maria.g.efthymiadou@gmail.com>",
+    "Alex Oberhauser <alex.oberhauser@networld.to>",
+    "Stavros Champilomatis <schampilomatis@gmail.com>"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/networld-to/blackgate/issues"

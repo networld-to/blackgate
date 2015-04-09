@@ -1,11 +1,16 @@
 #!/usr/bin/env node
 'use strict';
 
+/**
+ * Proxy Configuration - see `.env` file
+ */
+require('dotenv').load();
+
 var server = require('../lib/server');
 var log = require('../lib/logger');
 
-var port = process.env.PORT;
-var ip = process.env.IP;
+var port = process.env.PROXY_PORT;
+var ip = process.env.PROXY_IP;
 
 server.listen(port, ip, function() {
   log.info("[*] Starting proxy on " +

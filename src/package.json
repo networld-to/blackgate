@@ -1,0 +1,28 @@
+{
+  "name": "blackgate",
+  "version": "0.0.1",
+  "description": "Meta project that manages and starts all BlackGate components.",
+  "main": "blackgate",
+  "scripts": {
+    "start": "node_modules/.bin/nf start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:networld-to/blackgate.git"
+  },
+  "keywords": [
+    "distributed",
+    "hosting",
+    "blockchain"
+  ],
+  "author": "Alex Oberhauser <alex.oberhauser@networld.to>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/networld-to/blackgate/issues"
+  },
+  "homepage": "https://github.com/networld-to/blackgate",
+  "dependencies": {
+    "foreman": "^1.3.0"
+  }
+}

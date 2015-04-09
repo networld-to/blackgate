@@ -1,0 +1,28 @@
+{
+  "name": "blackgate-util",
+  "version": "0.0.1",
+  "description": "Helper code that is shared by multiple components.",
+  "main": "util.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:networld-to/blackgate.git"
+  },
+  "keywords": [
+    "distributed",
+    "hosting",
+    "blackgate"
+  ],
+  "author": "Alex Oberhauser <alex.oberhauser@networld.to>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/networld-to/blackgate/issues"
+  },
+  "homepage": "https://github.com/networld-to/blackgate",
+  "dependencies": {
+    "crypto": "0.0.3",
+    "enum": "^2.0.2"
+  }
+}

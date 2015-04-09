@@ -20,7 +20,7 @@ var Agent = require('socks5-http-client/lib/Agent');
 var crypto = require('crypto');
 
 var log = require('../lib/logger');
-var util = require('../lib/util.js');
+var Util = require('../../shared/util/util.js');
 var icc = require('../lib/inter_component_communication');
 
 /**
@@ -50,7 +50,7 @@ this.server = http.createServer(function(req, resp) {
 
     log.debug('');
     log.debug("Hostname         : %s", host);
-    log.debug("MagicNo          : 0x%s", util.doubleSha256(host).toString('hex'));
+    log.debug("MagicNo          : 0x%s", Util.doubleSha256(host).toString('hex'));
     log.debug("Requested Content: %s", link.toString());
     log.debug("Response Checksum: 0x%s", result.toString());
   });

@@ -6,7 +6,7 @@ var net = require('net');
 var colors = require('colors');
 var hexy = require('hexy');
 
-var Util = require('./lib/util.js');
+var Util = require('../shared/util/util.js');
 var CommandPackage = require('./lib/parser/command_package.js').CommandPackage;
 var Block = require('./lib/schema/block.js').Block;
 var Version = require('./lib/schema/version.js').Version;

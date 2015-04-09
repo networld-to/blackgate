@@ -5,12 +5,13 @@ require('dotenv').load();
 
 var net = require('net');
 var colors = require('colors');
+var log = require('../lib/logger');
 
-var Util = require('../lib/util.js');
-//var PeerHandler = require('./lib/peer_handler.js').PeerHandler;
-var Version = require('../lib/schema/version.js').Version;
-var Block = require('../lib/schema/block.js').Block;
-var CommandPackage = require('../lib/parser/command_package.js').CommandPackage;
+var Util = require('../../shared/util/util.js');
+//var PeerHandler = require('./lib/peer_handler').PeerHandler;
+var Version = require('../lib/schema/version').Version;
+var Block = require('../lib/schema/block').Block;
+var CommandPackage = require('../lib/parser/command_package').CommandPackage;
 
 var ip = '127.0.0.1';
 var port = process.env.BLOCKCHAIN_HANDLER_PORT; // change that port
@@ -68,14 +69,14 @@ sock.on('message', function(msg){
     client.write(sendVersion(msg_json.hostname));
     client.setTimeout(Util.TIMEOUT, function() {
       var node = client.address();
-      console.log("No response received from the node '".yellow + node.address.yellow + ':'.yellow + node.port.toString().yellow  + "'".yellow);
+      log.warn("No response received from the node '" + node.address + ':' + node.port.toString()  + "'");
       client.end();
     });
 
     client.on('data', function(data) {
       var command = Util.COMMANDS.get(data.readUInt8(32)).key; // 32 Byte MagicNo offset
       if ( command === 'VERSION_ACK' ) {
-        console.log('< TODO: Add here the node to the internal peer list.');
+        log.error('< TODO: Add here the node to the internal peer list.');
         client.end();
       }
     });
@@ -88,30 +89,29 @@ var server = net.createServer(function (socket) {
   socket.on('data', function(data) {
     var pkg = new CommandPackage(data);
     var command_string = pkg.getCommandString();
-    console.log('************************************************** BEGIN NEW CONNECTION: '.cyan + command_string.cyan + ' ****'.cyan);
-    console.log('--- BEGIN Raw Data ---'.yellow);
-    console.log(pkg.toString());
-    console.log('--- END Raw Data   ---\r\n'.yellow);
+    log.debug('*** BEGIN NEW CONNECTION: ' + command_string + ' ****');
+    log.debug('--- BEGIN Raw Data ---');
+    log.debug(pkg.toString());
 
     var command = pkg.getCommandString();
     switch(command) {
       case 'VERSION':
         // TODO: PeerHandler manages this node. If new it adds it to the peer
         // list.
-        console.log("MagicNo     : ".yellow + pkg.getMagicNo());
-        console.log("Command     : ".yellow + command_string + " (" + pkg.getCommand() + ")");
-        console.log("Payload Size: ".yellow + pkg.getPayloadSize() + " Bytes");
+        log.debug("MagicNo     : " + pkg.getMagicNo());
+        log.debug("Command     : " + command_string + " (" + pkg.getCommand() + ")");
+        log.debug("Payload Size: " + pkg.getPayloadSize() + " Bytes");
         var checksum = pkg.getChecksum();
-        console.log("Checksum    : ".yellow + checksum);
+        log.debug("Checksum    : " + checksum);
 
         var payload = pkg.getPayload();
         if ( payload.verify(checksum) ) {
-          console.log("VERSION Payload".yellow);
-          console.log("|-> Version : ".yellow + "0x" + payload.version.toString(16));
-          console.log("|-> Services: ".yellow + "0x" + payload.services.toString(16));
-          console.log("|-> Time    : ".yellow + payload.getTimestamp());
+          log.debug("VERSION Payload");
+          log.debug("|-> Version : 0x" + payload.version.toString(16));
+          log.debug("|-> Services: 0x" + payload.services.toString(16));
+          log.debug("|-> Time    : " + payload.getTimestamp());
         } else {
-          console.log("ERROR: Payload Checksum Failed!".red);
+          log.error("ERROR: Payload Checksum Failed!");
         }
         /**
          * BEGIN VERSION_ACK
@@ -141,15 +141,15 @@ var server = net.createServer(function (socket) {
         break;
       case 'BLOCK':
         // TODO: Validate and store the received block.
-        console.log("MagicNo     : ".yellow + pkg.getMagicNo());
-        console.log("Command     : ".yellow + pkg.getCommandString() + " (" + pkg.getCommand() + ")");
-        console.log("Payload Size: ".yellow + pkg.getPayloadSize() + " Bytes");
-        console.log("Checksum    : ".yellow + pkg.getChecksum());
+        log.debug("MagicNo     : ".yellow + pkg.getMagicNo());
+        log.debug("Command     : ".yellow + pkg.getCommandString() + " (" + pkg.getCommand() + ")");
+        log.debug("Payload Size: ".yellow + pkg.getPayloadSize() + " Bytes");
+        log.debug("Checksum    : ".yellow + pkg.getChecksum());
 
         var payload = pkg.getPayload();
-        console.log("BLOCK Payload".yellow);
-        console.log("|-> Version : ".yellow + "0x" + payload.version.toString(16));
-        console.log("|-> Time    : ".yellow + payload.getTimestamp());
+        log.debug("BLOCK Payload".yellow);
+        log.debug("|-> Version : ".yellow + "0x" + payload.version.toString(16));
+        log.debug("|-> Time    : ".yellow + payload.getTimestamp());
         break;
       case 'TRX':
         // TODO: Validate and store the received transaction.
@@ -157,18 +157,17 @@ var server = net.createServer(function (socket) {
       case 'CONFIRM_TRX':
         break;
     }
-    console.log('************************************************** END   NEW CONNECTION: '.cyan + command_string.cyan + ' ****\n'.cyan);
+    log.debug('*** END   NEW CONNECTION: ' + command_string + ' ****');
 
   });
 });
 
 // Recover from all uncaught exception, without crashing.
 process.on("uncaughtException", function(err) {
-  console.log("[!] ".red + err.toString().red);
+  log.fatal("[!] " + err.toString());
 });
 
 server.listen(port, ip, function() {
-  console.log("[*] Starting blockchain handler on ".green +
-      ip.blue + ":".blue + port.toString().blue);
+  log.info("[*] Starting blockchain handler on " + ip + ":" + port.toString());
 });
 

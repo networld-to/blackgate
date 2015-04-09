@@ -1,5 +1,5 @@
 var hexy = require('hexy');
-var Util = require('../util.js');
+var Util = require('../../../shared/util/util.js');
 var Block = require('../schema/block.js').Block;
 var Version = require('../schema/version.js').Version;
 

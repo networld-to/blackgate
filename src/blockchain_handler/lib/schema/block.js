@@ -1,4 +1,4 @@
-var Util = require('../util');
+var Util = require('../../../shared/util/util.js');
 var hexy = require('hexy');
 
 var Block = exports.Block = function Block (data) {

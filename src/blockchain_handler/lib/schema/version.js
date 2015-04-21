@@ -33,6 +33,8 @@ Version.prototype.serialize = function() {
 /**
  * Verifies the serialized version message checksum against the checksum
  * received via the message header.
+ *
+ * XXX: Compute the hash from hex represntation.
  */
 Version.prototype.verify = function(checksum) {
   var computed_checksum = Util.doubleSha256(this.serialize()).slice(0, 4).toString('hex');

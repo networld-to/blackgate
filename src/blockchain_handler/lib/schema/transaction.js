@@ -1,5 +1,4 @@
 var Util = require('../../../shared/util/util.js');
-var hexy = require('hexy');
 
 var Transaction = exports.Transaction = function Transaction(data){
 
@@ -45,7 +44,7 @@ Transaction.prototype.serialize = function() {
 
   var responseChecksumBuf = new Buffer(this.responseChecksum.toString());
 
-  var trx = Buffer.concat([ 	this.parentId,
+  var trx = Buffer.concat([this.parentId,
       typeBuf,
       scriptSigLengthBuf,
       scriptSigBuf,

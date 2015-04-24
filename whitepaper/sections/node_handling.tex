@@ -1,0 +1,11 @@
+All nodes assign priorities to its neighbor nodes in the overlay network.
+The priority, which is a subjective metric, represents ratio of the response
+messages, Transaction or a Block, requested from a specific host to the
+overall responses (from all the hosts). \\
+$score = \frac{receivedTransaction + receivedBlock}{allResponses}$
+
+
+
+The host, which receives the response message, increments always the allResponses value but
+only the receivedTransaction or receivedBlock one for the host whose message
+arrived first.

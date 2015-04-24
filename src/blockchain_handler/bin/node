@@ -81,18 +81,17 @@ var server = net.createServer(function (socket) {
   // New client connected, waiting for command message
   socket.on('data', function(data) {
     var pkg = new CommandPackage(data);
-    var command_string = pkg.getCommandString();
-    log.debug('*** BEGIN NEW CONNECTION: ' + command_string + ' ****');
+    var command = pkg.getCommandString();
+    log.debug('*** BEGIN NEW CONNECTION: ' + command + ' ****');
     log.debug('--- BEGIN Raw Data ---');
     log.debug(pkg.toString());
 
-    var command = pkg.getCommandString();
     switch(command) {
       case 'VERSION':
         // TODO: PeerHandler manages this node. If new it adds it to the peer
         // list.
         log.debug("MagicNo     : " + pkg.getMagicNo());
-        log.debug("Command     : " + command_string + " (" + pkg.getCommand() + ")");
+        log.debug("Command     : " + command + " (" + pkg.getCommand() + ")");
         log.debug("Payload Size: " + pkg.getPayloadSize() + " Bytes");
         var checksum = pkg.getChecksum();
         log.debug("Checksum    : " + checksum);
@@ -112,15 +111,16 @@ var server = net.createServer(function (socket) {
         // TODO: Check if we have the blockchain with that MagicNo
         var magicNo = pkg.getMagicNo();
 
-        var command = new Buffer(1);
-        command.writeUInt8(Util.COMMANDS.get('VERSION_ACK').value);
+        var commandBuf = new Buffer(1);
+        commandBuf.writeUInt8(Util.COMMANDS.get('VERSION_ACK').value);
 
         var payloadSize = new Buffer(4);
         payloadSize.writeUInt32BE(0);
 
         var checksum = Util.doubleSha256('').slice(0, 4);
 
-        socket.write(Buffer.concat([ magicNo, command, payloadSize, checksum ]));
+        console.log(new Buffer(magicNo, 'hex'));
+        socket.write(Buffer.concat([ new Buffer(magicNo, 'hex'), commandBuf, payloadSize, checksum ]));
         /**
          * END VERSION_ACK
          */
@@ -152,7 +152,7 @@ var server = net.createServer(function (socket) {
       case 'CONFIRM_TRX':
         break;
     }
-    log.debug('*** END   NEW CONNECTION: ' + command_string + ' ****');
+    log.debug('*** END   NEW CONNECTION: ' + command + ' ****');
 
   });
 });

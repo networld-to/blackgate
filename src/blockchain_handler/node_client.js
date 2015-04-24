@@ -47,41 +47,66 @@ function sendVersion() {
   return Buffer.concat([magicNo, command, payloadSize, checksum, payload ]);
 }
 
-var client = net.connect(8123, '127.0.0.1', function() {
-  console.log("< Sending 'VERSION' message...".green);
-  client.write(sendVersion());
+var Socks = require('socks');
 
-  client.setTimeout(Util.TIMEOUT, function() {
-    var node = client.address();
-    console.log("No response received from the node '".yellow + node.address.yellow + ':'.yellow + node.port.toString().yellow  + "'".yellow);
-    client.end();
-  });
+var options = {
+  proxy: {
+    ipaddress: "127.0.0.1",
+    port: 9051,
+    type: 5  // (4 or 5)
+  },
 
-  client.on('data', function(data) {
-    var command = Util.COMMANDS.get(data.readUInt8(32)).key; // 32 Byte MagicNo offset
+  target: {
+    host: "zgda6aqhgye572dw.onion",
+    port: 8123
+  }
+};
 
-   console.log("> Received '".green + command.green + "' message.".green);
-    switch(command) {
-      case 'VERSION_ACK':
-        console.log("< Sending 'BLOCK_REQUEST'...".green);
-        client.end(sendBlockRequest());
-        break;
-      case 'BLOCK':
-        client.end();
-        // TODO: Validate and store the received block.
-        var pkg = new CommandPackage(data);
-        console.log("MagicNo     : ".yellow + pkg.getMagicNo());
-        console.log("Command     : ".yellow + pkg.getCommandString() + " (" + pkg.getCommand() + ")");
-        console.log("Payload Size: ".yellow + pkg.getPayloadSize() + " Bytes");
-        console.log("Checksum    : ".yellow + pkg.getChecksum());
+Socks.createConnection(options, function (err, socket, info) {
+  if (err)
+    console.log(err);
+  else {
+    // Please remember that sockets need to be resumed before any data will come in.
+    socket.resume();
 
-        var payload = pkg.getPayload();
-        console.log("BLOCK Payload".yellow);
-        console.log("|-> Version : ".yellow + "0x" + payload.version.toString(16));
-        console.log("|-> Time    : ".yellow + payload.getTimestamp());
+    console.log("Connected");
 
-        break;
-    }
-  });
+    // We can do whatever we want with the socket now.
+    console.log("< Sending 'VERSION' message...".green);
+    socket.write(sendVersion());
+
+    socket.setTimeout(Util.TIMEOUT, function() {
+      console.log("No response received from node");
+      socket.end();
+    });
+
+    socket.on('data', function(data) {
+      console.log(hexy.hexy(data));
+      var command = Util.COMMANDS.get(data.readUInt8(32)).key; // 32 Byte MagicNo offset
+
+      console.log("> Received '".green + command.green + "' message.".green);
+      switch(command) {
+        case 'VERSION_ACK':
+          console.log("< Sending 'BLOCK_REQUEST'...".green);
+          socket.end(sendBlockRequest());
+          break;
+        case 'BLOCK':
+          client.end();
+          // TODO: Validate and store the received block.
+          var pkg = new CommandPackage(data);
+          console.log("MagicNo     : ".yellow + pkg.getMagicNo());
+          console.log("Command     : ".yellow + pkg.getCommandString() + " (" + pkg.getCommand() + ")");
+          console.log("Payload Size: ".yellow + pkg.getPayloadSize() + " Bytes");
+          console.log("Checksum    : ".yellow + pkg.getChecksum());
+
+          var payload = pkg.getPayload();
+          console.log("BLOCK Payload".yellow);
+          console.log("|-> Version : ".yellow + "0x" + payload.version.toString(16));
+          console.log("|-> Time    : ".yellow + payload.getTimestamp());
+
+          break;
+      }
+    });
+
+  }
 });
-

@@ -2,7 +2,7 @@ var crypto = require('crypto');
 var Enum = require('enum');
 
 var PACKAGE_HEADER_LENGTH = exports.PACKAGE_HEADER_LENGTH = 41;
-var TIMEOUT = exports.TIMEOUT = 3000; // Connection Timeout in Milliseconds
+var TIMEOUT = exports.TIMEOUT = 6000; // Connection Timeout in Milliseconds
 
 var COMMANDS = exports.COMMANDS = new Enum({
   'VERSION'       : 0x00,

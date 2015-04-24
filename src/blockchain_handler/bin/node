@@ -10,6 +10,8 @@ var log = require('../lib/logger');
 var zmq = require('zmq')
 , sock = zmq.socket('pull');
 
+var Socks = require('socks');
+
 var Util = require('../../shared/util/util.js');
 var PeerHandler = require('../lib/peer_handler').PeerHandler;
 var Version = require('../lib/schema/version').Version;
@@ -53,21 +55,35 @@ function sendBlock() {
 sock.connect(process.env.NEW_BLOCKCHAIN_SOCKET);
 sock.on('message', function(msg){
   var msg_json = JSON.parse(msg);
-  msg_json.hostname = '127.0.0.1'; // XXX: Delete that line, it redirects all calls to localhost
-  var client = net.connect(port, msg_json.hostname, function() {
-    client.write(CommandPackage.getVersionPackage(msg_json.hostname));
-    client.setTimeout(Util.TIMEOUT, function() {
-      var node = client.address();
+  //msg_json.hostname = '127.0.0.1'; // XXX: Delete that line, it redirects all calls to localhost
+
+  var options = {
+    proxy: {
+      ipaddress: "127.0.0.1",
+      port: 9051,
+      type: 5  // (4 or 5)
+    },
+
+    target: {
+      host: msg_json.hostname,
+      port: 8123
+    }
+  };
+
+  Socks.createConnection(options, function (err, socket, info) {
+    socket.write(CommandPackage.getVersionPackage(msg_json.hostname));
+    socket.setTimeout(Util.TIMEOUT * 10, function() {
+      var node = socket.address();
       log.warn("No response received from the node '" + node.address + ':' + node.port.toString()  + "'");
-      client.end();
+      socket.end();
     });
 
-    client.on('data', function(data) {
+    socket.on('data', function(data) {
       var command = Util.COMMANDS.get(data.readUInt8(32)).key; // 32 Byte MagicNo offset
       if ( command === 'VERSION_ACK' ) {
-        PeerHandler.addPeer(client.address());
+        Pqhgye572dw.onioneerHandler.addPeer(client.address());
         log.error('< TODO: Add here the node to the internal peer list.');
-        client.end();
+        socket.end();
       }
     });
 
@@ -105,6 +121,7 @@ var server = net.createServer(function (socket) {
         } else {
           log.error("ERROR: Payload Checksum Failed!");
         }
+
         /**
          * BEGIN VERSION_ACK
          */
@@ -119,7 +136,6 @@ var server = net.createServer(function (socket) {
 
         var checksum = Util.doubleSha256('').slice(0, 4);
 
-        console.log(new Buffer(magicNo, 'hex'));
         socket.write(Buffer.concat([ new Buffer(magicNo, 'hex'), commandBuf, payloadSize, checksum ]));
         /**
          * END VERSION_ACK

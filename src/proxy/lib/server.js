@@ -35,7 +35,7 @@ this.server = http.createServer(function(req, resp) {
     agentClass: Agent,
     agentOptions: {
       socksHost: '127.0.0.1',
-      socksPort: 9050, // Defaults to 1080.
+      socksPort: 9052, // Defaults to 1080.
     }
   }, function(err, res) {
     if (err) {

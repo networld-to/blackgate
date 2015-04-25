@@ -1,4 +1,5 @@
 var Util = require('../../../shared/util/util.js');
+var PersistentTransaction = require('../persistent').Transaction;
 
 var Transaction = exports.Transaction = function Transaction(data){
 
@@ -95,4 +96,18 @@ Transaction.prototype.toJSON = function(){
     'SnapshotChecksum' : this.snapshotChecksum.toString('hex'),
     'ResponseChecksums' : this.responseChecksum
   };
+}
+
+Transaction.prototype.save = function(magicNo) {
+  PersistentTransaction.create({
+    magicNo: magicNo,
+    transactionId: this.transactionId.toString('hex'),
+    parentId: this.parentId.toString('hex'),
+    type: this.type,
+    scriptSig: this.scriptSig,
+    hostname: this.hostname,
+    snapshotRef: this.snapshotRef,
+    snapshotChecksum: this.snapshotChecksum.toString('hex'),
+    responseChecksums: this.responseChecksum
+  })
 }

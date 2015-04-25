@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+'use strict';
+
+var pers = require('../lib/persistent');
+var Transaction = pers.Transaction;
+
+Transaction.sync({force: true}).then(function () {
+  console.log('Recreated "Transaction" table...')
+});

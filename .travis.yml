@@ -5,7 +5,7 @@ node_js:
 
 install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq libzmq-dev
+  - sudo apt-get install -qq libzmq3-dev
 
 env:
   - TEST_DIR=src/blockchain_handler

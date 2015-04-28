@@ -1,8 +1,10 @@
 require('dotenv').load();
 
 var Sequelize = require('sequelize')
-  , db = new Sequelize(null, null, null, { dialect: 'sqlite',
-  storage: process.env.DATABASE, logging: true });
+  , db = new Sequelize(null, null, null, {
+    dialect: 'sqlite',
+    storage: process.env.DATABASE
+  });
 
 var Transaction = exports.Transaction = db.define('transaction', {
   magicNo:            Sequelize.STRING,

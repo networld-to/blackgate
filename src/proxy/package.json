@@ -30,6 +30,7 @@
     "colors": "^1.0.3",
     "crypto": "0.0.3",
     "dotenv": "^1.1.0",
+    "enum": "^2.0.2",
     "node-cache": "^1.1.0",
     "request": "^2.54.0",
     "socks5-http-client": "^1.0.1",

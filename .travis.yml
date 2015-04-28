@@ -1,8 +1,15 @@
 language: node_js
+
 node_js:
   - "0.12"
+
+install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq libzmq-dev
+
 env:
   - TEST_DIR=src/blockchain_handler
   - TEST_DIR=src/proxy
   - TEST_DIR=src/hosting_component
+
 script: cd $TEST_DIR && npm install && npm test

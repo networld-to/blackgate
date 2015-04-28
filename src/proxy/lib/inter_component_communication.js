@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').load();
+
 var zmq = require('zmq'),
   newBlockchainSocket = zmq.socket('push'),
   cache = require('node-cache'),

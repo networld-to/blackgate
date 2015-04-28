@@ -5,7 +5,7 @@
   "main": "./bin/hosting_component",
   "scripts": {
     "start": "LOG_LEVEL=debug node ./bin/hosting_component | node_modules/.bin/bunyan",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,8 @@
     "mkdirp": "^0.5.0",
     "webtorrent": "^0.30.0",
     "zmq": "^2.11.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.4"
   }
 }

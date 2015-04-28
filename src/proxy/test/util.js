@@ -1,5 +1,5 @@
 var assert = require("assert");
-var Util = require("../lib/util.js");
+var Util = require("../../shared/util/util.js");
 
 describe('Util', function() {
   describe('#doubleSha256', function() {

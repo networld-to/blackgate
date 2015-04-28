@@ -1,12 +1,10 @@
 var server = require('../lib/server');
-var Util = require('../lib/util');
+var Util = require("../../shared/util/util.js");
 
 var assert = require('assert'),
     http = require('http'),
     zmq = require('zmq'),
     sock = zmq.socket('pull');
-
-require('dotenv').load();
 
 var options = {
     host: process.env.IP,
@@ -20,6 +18,9 @@ var options = {
 var count = 1;
 
 describe('Proxy', function () {
+  it("access to 'www.example.org' via proxy should return 200")
+
+  /*
   before(function () {
     server.listen(process.env.PORT, process.env.IP);
     sock.connect(process.env.NEW_BLOCKCHAIN_SOCKET);
@@ -36,6 +37,7 @@ describe('Proxy', function () {
     });
 
   });
+  */
 
   after(function () {
     server.close();

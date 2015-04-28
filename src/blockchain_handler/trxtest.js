@@ -12,7 +12,7 @@ var trx  = new Transaction({
 		'responseChecksum' : {'/': Util.sha256("html_content").toString('hex')}
 	});
 
-trx_serialized = trx.serialize();
+var trx_serialized = trx.serialize();
 console.log(hexy.hexy(trx_serialized));
 
 var new_trx = Transaction.deserialize(trx_serialized);

@@ -1,7 +1,5 @@
 var log = require('./logger');
 
-var peers = [];
-
 var PeerHandler = exports.PeerHandler = function PeerHandler() { };
 
 /**

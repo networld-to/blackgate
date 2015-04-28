@@ -35,9 +35,9 @@ CommandPackage.prototype.getPayload = function() {
   var payloadSize = this.getPayloadSize();
   var payload = this.data.slice(startPayload, startPayload + payloadSize);
 
-  if ( this.getCommandString() == 'BLOCK' ) {
+  if ( this.getCommandString() === 'BLOCK' ) {
     return Block.deserialize(payload);
-  } else if ( this.getCommandString() == 'VERSION' ) {
+  } else if ( this.getCommandString() === 'VERSION' ) {
     return Version.deserialize(payload);
   }
 };
@@ -62,5 +62,5 @@ CommandPackage.getVersionPackage = function(hostname) {
   var checksum = Util.doubleSha256(payload).slice(0, 4);
 
   return Buffer.concat([magicNo, command, payloadSize, checksum, payload ]);
-}
+};
 

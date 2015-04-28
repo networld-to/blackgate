@@ -1,5 +1,4 @@
 var Util = require('../../../shared/util/util.js');
-var hexy = require('hexy');
 
 var Block = exports.Block = function Block (data) {
   if ("object" !== typeof data) {
@@ -21,7 +20,7 @@ Block.prototype.getHeader = function() {
 };
 
 Block.prototype.getTimestamp = function() {
-  return new Date(this.timestamp * 1000)
+  return new Date(this.timestamp * 1000);
 };
 
 Block.prototype.calcHash = function() {

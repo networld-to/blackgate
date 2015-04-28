@@ -2,18 +2,14 @@
  * TODO: This is code snippet is only used for testing purposes. The
  * functionality implemented here will be merge with `bin/node`
  ******************************************************************/
-var net = require('net');
-var colors = require('colors');
+require('colors');
 var hexy = require('hexy');
 
 var Util = require('../shared/util/util.js');
 var CommandPackage = require('./lib/parser/command_package.js').CommandPackage;
-var Block = require('./lib/schema/block.js').Block;
 var Version = require('./lib/schema/version.js').Version;
 
 function sendBlockRequest() {
-  var timestamp = Util.timestamp();
-
   // Create a first command
   var magicNo = Util.doubleSha256('hello'); // The blockchain identifier aka. magic number
 
@@ -24,9 +20,6 @@ function sendBlockRequest() {
 
   var payloadSize = new Buffer(4);
   payloadSize.writeUInt32BE(0);
-
-  // What should be the checksum if there is no payload?
-  var checksum = Util.doubleSha256('').slice(0, 4);
 
   return Buffer.concat([magicNo, command, payloadSize, checksum ]);
 }
@@ -63,9 +56,10 @@ var options = {
 };
 
 Socks.createConnection(options, function (err, socket, info) {
-  if (err)
+  if (err) {
     console.log(err);
-  else {
+    console.log(info);
+  } else {
     // Please remember that sockets need to be resumed before any data will come in.
     socket.resume();
 
@@ -91,7 +85,7 @@ Socks.createConnection(options, function (err, socket, info) {
           socket.end(sendBlockRequest());
           break;
         case 'BLOCK':
-          client.end();
+          socket.end();
           // TODO: Validate and store the received block.
           var pkg = new CommandPackage(data);
           console.log("MagicNo     : ".yellow + pkg.getMagicNo());

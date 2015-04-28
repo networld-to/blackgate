@@ -14,7 +14,7 @@ var Transaction = exports.Transaction = function Transaction(data){
   this.snapshotRef = data.snapshotRef || '';
   this.snapshotChecksum = data.snapshotChecksum || ''; // XXX: Default value breaks serialization.
   this.responseChecksum = JSON.stringify(data.responseChecksum || {});
-}
+};
 
 Transaction.prototype.serialize = function() {
   var typeBuf = new Buffer(Util.TRX_FIELDS_SIZE['Type']);
@@ -59,11 +59,9 @@ Transaction.prototype.serialize = function() {
 
   var transactionId = Util.doubleSha256(trx.toString('hex'));
   return Buffer.concat([transactionId, trx]);
-}
+};
 
 Transaction.deserialize = function(rawTransaction){
-  var scriptSigStart, hostnameStart, snapshotRefStart, snapshotChecksumStart, responseChecksumStart;
-
   var trx = new Transaction();
   trx.transactionId = rawTransaction.slice(0, 32);
   trx.parentId = rawTransaction.slice(32, 64);
@@ -72,18 +70,18 @@ Transaction.deserialize = function(rawTransaction){
   var hostnameStart = 69 + scriptSigLength;
   trx.scriptSig =rawTransaction.slice(69,hostnameStart).toString('ascii');
   var hostnameLength = rawTransaction.readUInt32BE(hostnameStart);
-  snapshotRefStart = hostnameStart + 4 + hostnameLength;
+  var snapshotRefStart = hostnameStart + 4 + hostnameLength;
   trx.hostname = rawTransaction.slice(hostnameStart + 4,snapshotRefStart).toString('ascii');
   var snapshotRefLength = rawTransaction.readUInt32BE(snapshotRefStart);
-  snapshotChecksumStart = snapshotRefStart + 4 + snapshotRefLength;
+  var snapshotChecksumStart = snapshotRefStart + 4 + snapshotRefLength;
   trx.snapshotRef = rawTransaction.slice(snapshotRefStart + 4,snapshotChecksumStart).toString('ascii');
-  responseChecksumStart = snapshotChecksumStart + 32;
+  var responseChecksumStart = snapshotChecksumStart + 32;
   trx.snapshotChecksum = rawTransaction.slice(snapshotChecksumStart,responseChecksumStart);
   var responseChecksumLength =  rawTransaction.readUInt32BE(responseChecksumStart);
   trx.responseChecksum = rawTransaction.slice(responseChecksumStart + 4, responseChecksumStart + 4 + responseChecksumLength).toString('ascii');
 
   return trx;
-}
+};
 
 Transaction.prototype.toJSON = function(){
   return {
@@ -96,7 +94,7 @@ Transaction.prototype.toJSON = function(){
     'SnapshotChecksum' : this.snapshotChecksum.toString('hex'),
     'ResponseChecksums' : this.responseChecksum
   };
-}
+};
 
 Transaction.prototype.save = function(magicNo) {
   PersistentTransaction.create({
@@ -109,5 +107,6 @@ Transaction.prototype.save = function(magicNo) {
     snapshotRef: this.snapshotRef,
     snapshotChecksum: this.snapshotChecksum.toString('hex'),
     responseChecksums: this.responseChecksum
-  })
-}
+  });
+};
+

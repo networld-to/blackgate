@@ -1,5 +1,4 @@
 var Util = require('../../../shared/util/util.js');
-var hexy = require('hexy');
 
 var Version = exports.Version = function Version (data) {
   if ("object" !== typeof data) {
@@ -38,10 +37,11 @@ Version.prototype.serialize = function() {
  */
 Version.prototype.verify = function(checksum) {
   var computed_checksum = Util.doubleSha256(this.serialize()).slice(0, 4).toString('hex');
-  if ( computed_checksum == checksum )
+  if ( computed_checksum === checksum ) {
     return true;
-  else
+  } else {
     return false;
+  }
 };
 
 

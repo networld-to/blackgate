@@ -1,5 +1,7 @@
 # Reference Implementation
 
+[![Build Status](https://travis-ci.org/networld-to/blackgate.svg?branch=master)](https://travis-ci.org/networld-to/blackgate)
+
 The _Distributed Hosting Engine_ comes with a reference implementation that follows the
 specification as described in the [Whitepaper] and complementary documents. This
 implementation can be found in this directory.

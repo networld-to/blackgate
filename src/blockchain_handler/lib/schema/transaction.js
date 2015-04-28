@@ -7,39 +7,39 @@ var Transaction = exports.Transaction = function Transaction(data){
     data = {};
   }
   this.transactionId = data.transactionId || '';
-  this.parentId = data.parentId || ''; // XXX: Default value breaks serialization.
+  this.parentId = data.parentId || '';
   this.type = data.type || 0;
   this.scriptSig = data.scriptSig || '';
   this.hostname = data.hostname || '';
   this.snapshotRef = data.snapshotRef || '';
-  this.snapshotChecksum = data.snapshotChecksum || ''; // XXX: Default value breaks serialization.
+  this.snapshotChecksum = data.snapshotChecksum || '';
   this.responseChecksum = JSON.stringify(data.responseChecksum || {});
 };
 
 Transaction.prototype.serialize = function() {
-  var typeBuf = new Buffer(Util.TRX_FIELDS_SIZE['Type']);
+  var typeBuf = new Buffer(Util.TRX_FIELDS_SIZE.Type);
   typeBuf.fill(0);
   typeBuf.writeUInt8(this.type);
 
-  var scriptSigLengthBuf = new Buffer(Util.TRX_FIELDS_SIZE['ScriptSigLength']);
+  var scriptSigLengthBuf = new Buffer(Util.TRX_FIELDS_SIZE.ScriptSigLength);
   scriptSigLengthBuf.fill(0);
   scriptSigLengthBuf.writeUInt32BE(this.scriptSig.length);
 
   var scriptSigBuf = new Buffer(this.scriptSig.toString());
 
-  var hostnameLengthBuf = new Buffer(Util.TRX_FIELDS_SIZE['HostnameLength']);
+  var hostnameLengthBuf = new Buffer(Util.TRX_FIELDS_SIZE.HostnameLength);
   hostnameLengthBuf.fill(0);
   hostnameLengthBuf.writeUInt32BE(this.hostname.length);
 
   var hostnameBuf = new Buffer(this.hostname.toString());
 
-  var snapshotRefLengthBuf = new Buffer(Util.TRX_FIELDS_SIZE['SnapshotRefLength']);
+  var snapshotRefLengthBuf = new Buffer(Util.TRX_FIELDS_SIZE.SnapshotRefLength);
   snapshotRefLengthBuf.fill(0);
   snapshotRefLengthBuf.writeUInt32BE(this.snapshotRef.length);
 
   var snapshotRefBuf = new Buffer(this.snapshotRef.toString());
 
-  var responseChecksumLengthBuf = new Buffer(Util.TRX_FIELDS_SIZE['ResponseChecksumLength']);
+  var responseChecksumLengthBuf = new Buffer(Util.TRX_FIELDS_SIZE.ResponseChecksumLength);
   responseChecksumLengthBuf.fill(0);
   responseChecksumLengthBuf.writeUInt32BE(this.responseChecksum.length);
 
@@ -68,7 +68,7 @@ Transaction.deserialize = function(rawTransaction){
   trx.type = rawTransaction.readUInt8(64);
   var scriptSigLength = rawTransaction.readUInt32BE(65);
   var hostnameStart = 69 + scriptSigLength;
-  trx.scriptSig =rawTransaction.slice(69,hostnameStart).toString('ascii');
+  trx.scriptSig = rawTransaction.slice(69,hostnameStart).toString('ascii');
   var hostnameLength = rawTransaction.readUInt32BE(hostnameStart);
   var snapshotRefStart = hostnameStart + 4 + hostnameLength;
   trx.hostname = rawTransaction.slice(hostnameStart + 4,snapshotRefStart).toString('ascii');
@@ -77,7 +77,7 @@ Transaction.deserialize = function(rawTransaction){
   trx.snapshotRef = rawTransaction.slice(snapshotRefStart + 4,snapshotChecksumStart).toString('ascii');
   var responseChecksumStart = snapshotChecksumStart + 32;
   trx.snapshotChecksum = rawTransaction.slice(snapshotChecksumStart,responseChecksumStart);
-  var responseChecksumLength =  rawTransaction.readUInt32BE(responseChecksumStart);
+  var responseChecksumLength = rawTransaction.readUInt32BE(responseChecksumStart);
   trx.responseChecksum = rawTransaction.slice(responseChecksumStart + 4, responseChecksumStart + 4 + responseChecksumLength).toString('ascii');
 
   return trx;
@@ -85,14 +85,14 @@ Transaction.deserialize = function(rawTransaction){
 
 Transaction.prototype.toJSON = function(){
   return {
-    'TransactionID' : this.transactionId.toString('hex'),
+    'TransactionID': this.transactionId.toString('hex'),
     'ParentID': this.parentId.toString('hex'),
     'Type': this.type,
     'ScriptSig': this.scriptSig,
     'Hostname': this.hostname,
     'SnapshotRef': this.snapshotRef,
-    'SnapshotChecksum' : this.snapshotChecksum.toString('hex'),
-    'ResponseChecksums' : this.responseChecksum
+    'SnapshotChecksum': this.snapshotChecksum.toString('hex'),
+    'ResponseChecksums': this.responseChecksum
   };
 };
 

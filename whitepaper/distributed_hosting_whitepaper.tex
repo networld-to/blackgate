@@ -168,6 +168,18 @@ they maybe nearly identical or overlapping. The page content is not part of
 the blockchain, but referenced from it. This allows to have no page content
 size limit and the data exchange could be optimized.
 
+TODO: Addition of the architecture figure.
+
+The user browses a page and the proxy checks if it is hosted locally by querying
+the database. If the query returns result(s) then it compares the results’
+checksum  with the one  computed as the SHA256 of the page’s files. Finally it
+returns to the user the first valid available (online) hosted page (if any). In
+the case the query does not return any results, the proxy sends a request to the
+  Blockchain Handler with the page name. This component is responsible for
+  initially locating the page, by searching the DHT, afterwards it fetches the
+  Blockchain. Finally the proxy makes a HTTP call directly to the found host
+  and the hosting component which hosts the page .
+
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.75\textwidth]{pictures/data_cloud_blockchain.png}

@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "0.12"
+  - '0.12'
 
 install:
   - sudo apt-get update -qq
@@ -12,5 +12,8 @@ env:
   - TEST_DIR=src/blockchain_handler
   - TEST_DIR=src/proxy
   - TEST_DIR=src/hosting_component
-
 script: cd $TEST_DIR && npm install && npm test
+
+notifications:
+  slack:
+    secure: RkVn7zd3+miMU03J7dTuwVtomLHMtocLN99L/g+8uUQtiDOi3wMU+a76kw/hyKfmO1+/eyZx2xDkhYUijqE7UG2XF4NlcbXuFk/dnbBetQpvKsrKcVSbFpnS2N6TrUbdjhX2YAZ5JNiS18qliYaHw5cbXrKlJghAjxA6ZK0mhjs=

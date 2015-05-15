@@ -1,3 +1,4 @@
+require('coffee-script/register');
 var server = require('../lib/server');
 var Util = require("../../shared/util/util.js");
 

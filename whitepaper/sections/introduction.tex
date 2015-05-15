@@ -9,7 +9,7 @@ The here presented \textit{Distributed Hosting Engine} is designed with the
 following properties in mind:
 
 \begin{description}
-\item[Self-Managed Overlay Network] Hosted pages are distributed between
+\item[Self-Managed Overlay Networks] Hosted pages are distributed between
 nodes, dependent on different metrics. This increases not only performance,
 but makes the network also robust against malicious nodes, failures and other
 expected or unexpected changes.
@@ -24,17 +24,35 @@ central infrastructure.
 \section{Terminology}\index{Terminology}
 
 \begin{description}
-\item[Blockchain]
-\item[Block]
-\item[Genesis Block]
-\item[Transaction]
-\item[Protocol]
-\item[Content Creator]
-\item[Co-Host]
-\item[Page]
-\item[Snapshot]
-\item[Node]
-\item[Overlay Network]
+\item[Blockchain] A chain of blocks that origin from the same genesis block.
+\item[Block] A collection of transactions that are bundled together to a
+block. Each block links exactly to one previous block (except the genesis
+block). All transactions that are part of a block are confirmed by the network.
+\item[Genesis Block] First block in a blockchain. Does not reference a
+previous block.
+\item[Transaction] There are two types of transactions, UPDATE and CLONE.
+UPDATE transactions can only be issued by the content owner. CLONE
+transactions are issued by everybody that decides to host a page. Both
+transactions include a proof of ownership of the included hostname.
+\item[Protocol] A set of rules how nodes communicate with each other and how
+the transmitted packages look like. In the wider sense also how multiple
+blockchains are managed.
+\item[Content Owner] The entity that currently owns a page with related
+blockchain. Ownership is reflected by a crypographical keypair.
+\item[Co-Host] An entity that hosts a page with related blockchain that it
+does not own.
+\item[Website] A website typically includes at least html, css, javascript
+files and images.
+\item[Snapshot] A version of a website that is distributed from the content
+creator to all co-hosts. A new snapshot is announced in a UPDATE transaction
+and co-host upgrades are announces by CLONE transactions.
+\item[Node] A host that is able to communicate with other participants in the
+network. Generally a node is capable to manage blockchains and distributed
+snapshots.
+\item[Overlay Network] An overlay network is logical network structure on top
+of physical network. The main overlay networks are the connections between
+different nodes that share the same blockchain. Another overlay network is the
+filesharing peer-to-peer network.
 \end{description}
 
 \section{Hosting Paradigm Shift}\index{Hosting Paradigm Shift}

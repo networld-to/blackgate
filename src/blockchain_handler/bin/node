@@ -71,6 +71,7 @@ sock.on('message', function(msg){
   };
 
   Socks.createConnection(options, function (err, socket, info) {
+    console.log(msg_json);
     socket.write(CommandPackage.getVersionPackage(msg_json.hostname));
     socket.setTimeout(Util.TIMEOUT * 10, function() {
       var node = socket.address();

@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+require('coffee-script/register');
+
 /**
  * Proxy Configuration - see `.env` file
  */

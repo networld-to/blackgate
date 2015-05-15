@@ -233,7 +233,7 @@ as co-host of Node 1<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRig
           <y:LineStyle color="#800000" type="line" width="2.0"/>
           <y:Arrows source="none" target="standard"/>
           <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#800000" visible="true" width="141.935546875" x="66.9378547668457" y="7.046880722045898">(8) Tries to fetch
-page. Fails becasue 
+page. Fails because 
 the Node 1 is offline<y:LabelModel>
               <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
             </y:LabelModel>

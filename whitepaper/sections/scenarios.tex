@@ -13,8 +13,6 @@ makes the request, does not host this web page.
 
 \subsection{Page request for a page who's owner is online}
 
-Figure  ~\ref{fig:online_creator} explains the work flow of this scenario.
-
 \begin{figure}[htp]
 \center
 \includegraphics[width=0.5\textwidth]{pictures/fetch_page_online_creator.pdf}
@@ -22,13 +20,13 @@ Figure  ~\ref{fig:online_creator} explains the work flow of this scenario.
 \label{fig:online_creator}
 \end{figure}
 
-In particular, when the user types the \texttt{url} of his choice in his browser the proxy is
+In particular, when the user types the \texttt{url} of his choice in his browser the \texttt{Proxy} is
 triggered and makes a query to the local database. The local database returns an empty result,
 which is interpreted as absence of a stored snapshot and the blockchain for this page.
-Accordingly, the proxy sends a message to the Blockchain Handler that is going to access 
-a web page for the first time and makes an HTTP request to the owner of the web page. 
-The message to the Blockchain Handler is essential because this is the component that stores 
-statistics and decides which pages are hosted. Finally, the owner responds to the HTTP request
+Accordingly, the proxy sends a message to the \texttt{Blockchain Handler} that is going to access 
+a web page for the first time and makes an \texttt{HTTP} request to the owner of the web page. 
+The message to the \texttt{Blockchain Handler} is essential because this is the component that stores 
+statistics and decides which pages are hosted. Finally, the owner responds to the \texttt{HTTP} request
 and the user accesses the page.
 
 \subsection{Page request for a page who's owner is offline}
@@ -40,3 +38,35 @@ and the user accesses the page.
 blockchain of the page is stored locally.}
 \label{fig:offline_creator}
 \end{figure}
+
+In this case, when the \texttt{url} of the requested page is typed on the browser,
+ the \texttt{Proxy} is triggered. The database is then queried and 
+a sorted list of the known hosts of the target web page is returned. Typically, 
+the returned list is sorted by the criteria described in chapter 
+\textbf{to be speciffied/referenced.}
+
+Accordingly, the \texttt{Proxy} makes \texttt{HTTP} requests to the hosts of the list
+until it finds the first avaiable host. This procedure should be pretty quick because
+the higher a node is in the list the better the chances are to be online and satisfy 
+the request. 
+
+
+\subsection{First access to a web page who's owner is offline.}
+
+\begin{figure}[htp]
+\center
+\includegraphics[width=0.6\textwidth]{pictures/fetch_page_offline_creator_no_blockchain_stored.pdf}
+\caption{A node fetches a page from a co-host because its creator is offline.The list of
+the co-hosts is provided by a DHT.}
+\label{fig:offline_creator}
+\end{figure}
+
+In this scenario, the \texttt{Proxy} queries the local database for the requested \texttt{url}
+and gets an empty result because the specific blockchain is not stored. Accordingly, the 
+\texttt{Proxy} sends an \texttt{HTTP} request to the owner of the web page which fails too 
+because the owner is offline. 
+
+Accordingly, the \texttt{Proxy} looks up the \texttt{Distributed Hash Table (DHT)} which is 
+the component that stores which nodes host which web page. The \texttt{DHT} returns a list
+with the co-hosts of the web page and then the \texttt{Proxy} starts sending \texttt{HTTP}
+requests to these nodes until it receives the content of the web page.
